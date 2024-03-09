@@ -175,8 +175,17 @@ app.get("/logout", (req, res) => {
 });
 
 //Profile page
-app.get("/profile", (req, res) => {
-  res.render("profile");
+app.get("/profile", async (req, res) => {
+  var user_name = req.session.user_name;
+  console.log("user_name: " + user_name);
+  var results = await db_users.getUserProfile({
+    user_name: user_name,
+  });
+  if (results && results.length > 0) {
+    res.render("profile", { information: results[0] });
+  } else {
+    res.render("profile", { information: null }); // 사용자 정보를 찾을 수 없는 경우
+  }
 });
 
 //Add insurance page

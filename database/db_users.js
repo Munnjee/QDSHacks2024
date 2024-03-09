@@ -84,6 +84,34 @@ async function getUserSchool(postData) {
   }
 }
 
+// get a user with school list
+async function getUserProfile(postData) {
+  let getUserProfileSQL = `
+		SELECT  user.user_name, user.first_name, user.last_name, user.birthdate, user.email, user.phone, school.school_name, insurance.insurance_company, insurance.insurance_number
+    FROM user
+    JOIN user_school ON user.user_id = user_school.frn_user_id
+    JOIN school ON user_school.frn_school_id = school.school_id
+    JOIN insurance ON school.frn_insurance_id = insurance.insurance_id
+    WHERE user.user_name = :user_name;
+	`;
+
+  let params = {
+    user_name: postData.user_name,
+  };
+
+  try {
+    const results = await database.query(getUserProfileSQL, params);
+
+    console.log("Successfully found user");
+    console.log(results[0]);
+    return results[0];
+  } catch (err) {
+    console.log("Error trying to find user");
+    console.log(err);
+    return [];
+  }
+}
+
 // get a user with coverage balance
 async function getUsers(postData) {
   let getUsersSQL = `
@@ -104,4 +132,4 @@ async function getUsers(postData) {
   }
 }
 
-module.exports = { signUpUser, getUser, getUserSchool };
+module.exports = { signUpUser, getUser, getUserSchool, getUserProfile };
