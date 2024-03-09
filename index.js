@@ -35,7 +35,7 @@ app.use(express.urlencoded({ extended: false }));
 const port = process.env.PORT || 3000;
 
 var mongoStore = MongoStore.create({
-  mongoUrl: `mongodb+srv://${mongodb_user}:${mongodb_password}@cluster0.3lizggb.mongodb.net/sessions`,
+  mongoUrl: `mongodb+srv://${mongodb_user}:${mongodb_password}@cluster0.2orpatv.mongodb.net/sessions`,
   crypto: {
     secret: mongodb_session_secret,
   },
