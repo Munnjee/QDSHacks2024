@@ -1,0 +1,47 @@
+<%- include("templates/header") %>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input,
+        button {
+            margin-bottom: 10px;
+        }
+    </style>
+    <form action='/submitUser' method='post'>
+        <label for="username">user name</label>
+        <input name='user_name' type='text' placeholder='username'>
+
+        <label for="first_name">first name</label>
+        <input name='first_name' type='text' placeholder='first_name'>
+
+        <label for="last_name">last name</label>
+        <input name='last_name' type='text' placeholder='last_name'>
+
+        <label for="password">password</label>
+        <input name='password' type='password' placeholder='password'>
+
+        <label for="birthdate">birthdate</label>
+        <input name='birthdate' type='text' placeholder='birthdate'>
+
+        <label for="email">email</label>
+        <input name='email' type='text' placeholder='email'>
+
+        <label for="phone">phone</label>
+        <input name='phone' type='text' placeholder='phone'>
+
+        <% if (error) { %>
+            <p style="color: black;">
+                <%= error %>
+            </p>
+            <% } %>
+                <button>Submit</button>
+    </form>
+    <%- include("templates/footer") %>
