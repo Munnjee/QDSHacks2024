@@ -1,14 +1,33 @@
 <%- include("templates/header") %>
-    log in
-    <% if (errorMessage) { %>
-        <p style="color: red;">
-            <%= errorMessage %>
-        </p>
-        <% } %>
+    <style>
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-            <form action='/loggingin' method='post'>
-                <input name='username' type='text' placeholder='username'>
-                <input name='password' type='password' placeholder='password'>
-                <button>Submit</button>
-            </form>
-            <%- include("templates/footer") %>
+        label {
+            margin-bottom: 5px;
+        }
+
+        input,
+        button {
+            margin-bottom: 10px;
+        }
+
+        div {
+            padding: 50px;
+        }
+    </style>
+    log in
+    <div>
+        <form action='/loggingin' method='post'>
+            <label for="username">user name</label>
+            <input name='username' type='text' placeholder='username'>
+
+            <label for="password">password</label>
+            <input name='password' type='password' placeholder='password'>
+            <button>Submit</button>
+        </form>
+    </div>
+    <%- include("templates/footer") %>
