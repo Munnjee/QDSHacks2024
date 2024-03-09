@@ -22,7 +22,7 @@
   CREATE TABLE `freedb_QDSHacks2024`.`school` (
   `school_id` INT NOT NULL AUTO_INCREMENT,
   `school_name` VARCHAR(45) NOT NULL,
-  `insurance_id` VARCHAR(45) NOT NULL,
+  `frn_insurance_id` INT NOT NULL,
   PRIMARY KEY (`school_id`));
   
   CREATE TABLE `freedb_QDSHacks2024`.`insurance` (
