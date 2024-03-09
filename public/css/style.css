@@ -27,6 +27,7 @@ header {
   padding-left: 10%;
   padding-right: 10%;
   width: 100vw;
+  z-index: 1;
 }
 
 li,
@@ -162,6 +163,34 @@ i {
     display: block;
     margin-top: 40px;
   }
+}
+
+#chart {
+  position: relative;
+  top: calc(10px + 10px + 56px);
+  width: 100vw;
+  height: 50vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 
 
+svg{
+  display: block;
+  margin: auto
+}
+
+.chart_label {
+  font-weight: 500;
+  font-size: 16px;
+  fill: var(--accent1)
+}
+
+.bar1{
+  fill:#6B9090;
+  
+}
+
+.bar2{
+  fill:#CCE3DE
 }
