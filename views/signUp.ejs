@@ -15,32 +15,38 @@
         button {
             margin-bottom: 10px;
         }
+
+        div {
+            padding: 50px;
+        }
     </style>
     <h2>sign up</h2>
-    <form action='/submitUser' method='post'>
-        <label for="username">user name</label>
-        <input name='user_name' type='text' placeholder='username'>
+    <div>
+        <form action='/signingUp' method='post'>
+            <label for="username">user name</label>
+            <input name='user_name' type='text' placeholder='username'>
 
-        <label for="first_name">first name</label>
-        <input name='first_name' type='text' placeholder='first_name'>
+            <label for="first_name">first name</label>
+            <input name='first_name' type='text' placeholder='first_name'>
 
-        <label for="last_name">last name</label>
-        <input name='last_name' type='text' placeholder='last_name'>
+            <label for="last_name">last name</label>
+            <input name='last_name' type='text' placeholder='last_name'>
 
-        <label for="password">password</label>
-        <input name='password' type='password' placeholder='password'>
+            <label for="password">password</label>
+            <input name='password' type='password' placeholder='password'>
 
-        <label for="birthdate">birthdate</label>
-        <input name='birthdate' type='text' placeholder='birthdate'>
+            <label for="birthdate">birthdate</label>
+            <input name='birthdate' type='text' placeholder='birthdate'>
 
-        <label for="email">email</label>
-        <input name='email' type='text' placeholder='email'>
+            <label for="email">email</label>
+            <input name='email' type='text' placeholder='email'>
 
-        <label for="phone">phone</label>
-        <input name='phone' type='text' placeholder='phone'>
+            <label for="phone">phone</label>
+            <input name='phone' type='text' placeholder='phone'>
 
 
-        <button>Submit</button>
+            <button>Submit</button>
 
-    </form>
+        </form>
+    </div>
     <%- include("templates/footer") %>
