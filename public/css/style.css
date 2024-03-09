@@ -1,9 +1,11 @@
 :root {
-  --accent1: #6B9080;
-  --accent2: #A4C3B2;
-  --accent3: #CCE3DE;
-  --accent4: #EAF4F4;
-  --accent5: #f6fff8;
+
+  --accent1: #7A71E4;
+  --accent2: #c3c0e1;
+  --accent3: #b0afb3;
+  --accent4: #F0F0F0;
+  --accent5: #fdfdfd;
+
   --btnradius: 50px;
   --radius: 10px;
 }
@@ -12,7 +14,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  background-color: var(--accent4);
+  background-color: var(--accent5);
   font-family: "Roboto", sans-serif;
 }
 
@@ -53,7 +55,7 @@ button {
 }
 
 button:hover {
-  color: var(--accent5);
+  color: var(--accent4);
   background-color: var(--accent2);
 }
 
@@ -70,7 +72,7 @@ button:hover {
   background-color: transparent;
   font-weight: 700;
   font-size: 16px !important;
-  color: var(--accent5);
+  color: var(--accent4);
 }
 
 #click {
@@ -105,7 +107,7 @@ i {
 }
 
 .menu-btn {
-  color: var(--accent5);
+  color: var(--accent4);
   display: none;
   cursor: pointer;
   padding-left: 10px;
@@ -187,10 +189,10 @@ svg{
 }
 
 .bar1{
-  fill:#6B9090;
+  fill:var(--accent2);
   
 }
 
 .bar2{
-  fill:#CCE3DE
+  fill:var(--accent4);
 }
