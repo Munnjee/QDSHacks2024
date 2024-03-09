@@ -1,3 +1,18 @@
-</body>
+    <!-- Include jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        var menu = document.getElementById('menu');
 
+        function toggleMenu() {
+            menu.classList.toggle('open');
+        }
+
+        window.onclick = function(event) {
+            if (!menu.contains(event.target) && menu.classList.contains('open')) {
+                toggleMenu();
+            }
+        }
+    </script>
+  </body>
 </html>
