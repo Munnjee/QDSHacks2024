@@ -1,6 +1,7 @@
 <%- include("templates/header") %>
     <style>
-        form {
+        form,
+        h2 {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -15,6 +16,7 @@
             margin-bottom: 10px;
         }
     </style>
+    <h2>sign up</h2>
     <form action='/submitUser' method='post'>
         <label for="username">user name</label>
         <input name='user_name' type='text' placeholder='username'>
@@ -37,11 +39,8 @@
         <label for="phone">phone</label>
         <input name='phone' type='text' placeholder='phone'>
 
-        <% if (error) { %>
-            <p style="color: black;">
-                <%= error %>
-            </p>
-            <% } %>
-                <button>Submit</button>
+
+        <button>Submit</button>
+
     </form>
     <%- include("templates/footer") %>
