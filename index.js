@@ -122,14 +122,14 @@ app.post("/signingUp", async (req, res) => {
 
 //Login page
 app.get("/login", (req, res) => {
-  if (isValidSession(req)) {
-    res.redirect("/");
-    return;
-  } else {
-    var errorMessage = req.session.errorMessage;
-    req.session.errorMessage = null;
-    res.render("login", { errorMessage: errorMessage });
-  }
+  // if (isValidSession(req)) {
+  //   res.redirect("/");
+  //   return;
+  // } else {
+  //   var errorMessage = req.session.errorMessage;
+  //   req.session.errorMessage = null;
+  //   res.render("login", { errorMessage: errorMessage });
+  // }
   res.render("login");
 });
 
