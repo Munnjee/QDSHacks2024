@@ -70,12 +70,13 @@ function sessionValidation(req, res, next) {
 
 //Main page
 app.get("/", (req, res) => {
-  if (!req.session.authenticated) {
-    res.render("login");
-  } else {
-    console.log("user_name: " + req.session.user_name);
-    res.render("index", { user_name: req.session.user_name });
-  }
+  // if (!req.session.authenticated) {
+  //   res.render("login");
+  // } else {
+  //   console.log("user_name: " + req.session.user_name);
+  //   res.render("index", { user_name: req.session.user_name });
+  // }
+  res.render("index");
 });
 
 //Signup page
