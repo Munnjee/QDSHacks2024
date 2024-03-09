@@ -1,0 +1,167 @@
+:root {
+  --accent1: #6B9080;
+  --accent2: #A4C3B2;
+  --accent3: #CCE3DE;
+  --accent4: #EAF4F4;
+  --accent5: #f6fff8;
+  --btnradius: 50px;
+  --radius: 10px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: var(--accent4);
+  font-family: "Roboto", sans-serif;
+}
+
+header {
+  position: fixed;
+  display: flex;
+  background-color: var(--accent1);
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 10%;
+  padding-right: 10%;
+  width: 100vw;
+}
+
+li,
+a{
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--accent5);
+  text-decoration: none;
+  background-color: transparent;
+}
+
+button {
+  padding-top: 9px;
+  padding-bottom: 9px;
+  padding-left: 25px;
+  padding-right: 25px;
+  color: var(--accent1);
+  background-color: var(--accent5);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+button:hover {
+  color: var(--accent5);
+  background-color: var(--accent2);
+}
+
+
+.logo_img {
+  max-height: 46px;
+  background-color: transparent;
+  margin-right: 10px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  font-weight: 700;
+  font-size: 16px !important;
+  color: var(--accent5);
+}
+
+#click {
+  display: none;
+  background-color: transparent;
+}
+
+.nav_li {
+  list-style: none;
+  background-color: transparent;
+}
+
+.nav_li li {
+  display: inline-block;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.nav_li li a {
+  transition: all 0.3s ease 0s;
+}
+
+.nav_li li a:hover,
+.active {
+  color: var(--accent2);
+}
+
+i {
+  background-color: transparent;
+}
+
+.menu-btn {
+  color: var(--accent5);
+  display: none;
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+@media (max-width: 1250px) {
+  .nav_li {
+    position: fixed;
+    top: 60px;
+    left: -100%;
+    background-color: #242a24;
+    height: 100vh;
+    width: 100%;
+    display: block;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .logout_btn {
+    display: inline-flex;
+    position: fixed;
+    bottom: 80px;
+    width: 100vw;
+    left: +100;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .menu-btn {
+    display: inline-block;
+    background-color: transparent;
+  }
+  
+  #click:not(:checked)~.nav_li {
+    left: +100%;
+  }
+
+  #click:not(:checked)~.logout_btn {
+    left: +100%;
+  }
+
+  #click:checked~.nav_li {
+    left: 0%;
+  }
+
+  #click:checked~.logout_btn {
+    left: 0%;
+  }
+
+  #click:checked~.menu-btn i:before {
+    content: "\f00d";
+  }
+
+  .nav_li li {
+    display: block;
+    margin-top: 40px;
+  }
+
+
+}
