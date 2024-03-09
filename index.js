@@ -13,6 +13,7 @@ const saltRounds = 12;
 const database = include("databaseConnection");
 const db_utils = include("database/db_utils");
 const db_users = include("database/db_users");
+const db_categories = include("database/db_categories");
 const success = db_utils.printMySQLVersion();
 
 //reference of the express module
@@ -182,9 +183,17 @@ app.get("/profile", (req, res) => {
 app.get("/addInsurance", (req, res) => {
   res.render("addInsurance");
 });
+
 //Submit claim page
-app.get("/submitClaim", (req, res) => {
-  res.render("submitClaim");
+app.get("/submitClaim", async (req, res) => {
+  try {
+    var categories = await db_categories.getCategories({}); // 카테고리 목록을 가져옴
+    categories = categories[0];
+    res.render("submitClaim", { categories: categories }); // 템플릿으로 전달
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    res.render("submitClaim", { categories: [] }); // 오류 발생 시 빈 배열을 전달
+  }
 });
 
 // Serve static files

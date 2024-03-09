@@ -1,0 +1,22 @@
+<%- include("templates/header") %>
+
+    <div class="login-container" style="padding-top: 150px;">
+        submit claim
+
+
+        <!-- category -->
+        <form action='/submitClaim' method='post'>
+            <select name='category'>
+                <% categories.forEach(function(category) { %>
+                    <option value="<%= category.category_id %>">
+                        <%= category.category_name %>
+                    </option>
+                    <% }) %>
+            </select><br>
+            <input name='amount' type='number' placeholder='amount'><br>
+            <button>Submit</button>
+        </form>
+    </div>
+
+
+    <%- include("templates/footer") %>
