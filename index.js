@@ -12,7 +12,7 @@ const saltRounds = 12;
 
 const database = include("databaseConnection");
 const db_utils = include("database/db_utils");
-const db_users = include("database/users");
+const db_users = include("database/db_users");
 const success = db_utils.printMySQLVersion();
 
 //reference of the express module
@@ -61,9 +61,80 @@ app.get("/signUp", (req, res) => {
   res.render("signUp");
 });
 
+// signingUp
+app.post("/signingUp", async (req, res) => {
+  var user_name = req.body.user_name;
+  var first_name = req.body.first_name;
+  var last_name = req.body.last_name;
+  var password = req.body.password;
+  var birthdate = req.body.birthdate;
+  var email = req.body.email;
+  var phone = req.body.phone;
+  var hashedPassword = "";
+
+  // when password meets requirements
+  bcrypt.hash(password, saltRounds, async (err, hash) => {
+    if (err) {
+      console.log(err);
+      res.redirect("/signup");
+    } else {
+      hashedPassword = hash;
+      var success = await db_users.signUpUser({
+        user_name: user_name,
+        first_name: first_name,
+        last_name: last_name,
+        password: hashedPassword,
+        birthdate: birthdate,
+        email: email,
+        phone: phone,
+      });
+
+      if (success) {
+        res.render("login");
+      } else {
+        res.render("errorMessage", { error: "Failed to create user." });
+      }
+    }
+  });
+});
+
 //Login page
 app.get("/login", (req, res) => {
   res.render("login");
+});
+
+// Logging in
+app.post("/loggingin", async (req, res) => {
+  var user_name = req.body.user_name;
+  var password = req.body.password;
+
+  var results = await db_users.getUser({
+    user_name: user_name,
+  });
+  if (results) {
+    if (results.length == 1) {
+      //there should only be 1 user in the db that matches
+      if (bcrypt.compareSync(password, results[0].password)) {
+        req.session.authenticated = true;
+        req.session.user_name = user_name;
+        req.session.cookie.maxAge = expireTime;
+
+        res.redirect("/");
+        return;
+      } else {
+        console.log("invalid password");
+      }
+    } else {
+      console.log("invalid user");
+    }
+  } else {
+    console.log(
+      "invalid number of users matched: " + results.length + " (expected 1)."
+    );
+    res.redirect("/login");
+  }
+
+  res.render("login", { invalidUser: true });
 });
 
 //Profile page
