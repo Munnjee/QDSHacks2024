@@ -22,6 +22,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.4.0",
     "mysql2": "^3.9.2",
+    "node-cron": "^3.0.3",
     "nodemailer": "^6.9.12",
     "promise": "^8.3.0",
     "session": "^0.1.0"
