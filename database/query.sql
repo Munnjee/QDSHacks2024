@@ -257,4 +257,7 @@ INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_
 INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('4', '7', '80', '400');
 INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('4', '8', '100', '500');
 INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('4', '8', '100', '500');
+<<<<<<< HEAD
 INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('4', '8', '100', '500');
+=======
+>>>>>>> 677d23cc31b2eec56583cf424d9f4138c38cf849
