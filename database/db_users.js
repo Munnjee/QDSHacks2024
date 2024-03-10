@@ -57,6 +57,30 @@ async function getUser(postData) {
   }
 }
 
+async function getUserByEmail(postData) {
+  let getUserByEmailSQL = `
+		SELECT user_name, password, email
+		FROM user
+		WHERE email = :email;
+	`;
+
+  let params = {
+    email: postData.email,
+  };
+
+  try {
+    const results = await database.query(getUserByEmailSQL, params);
+
+    console.log("Successfully found user");
+    console.log(results[0]);
+    return results[0];
+  } catch (err) {
+    console.log("Error trying to find user");
+    console.log(err);
+    return false;
+  }
+}
+
 // get a user with school list
 async function getUserSchool(postData) {
   let getUserSchoolSQL = `
@@ -84,6 +108,29 @@ async function getUserSchool(postData) {
   }
 }
 
+async function updatePassword(postData) {
+  let updatePasswordSQL = `
+		UPDATE user (password) VALUES (:password) WHERE user_name = :user_name;
+	`;
+
+  let params = {
+    user_name: postData.user_name,
+    password: postData.password,
+  };
+
+  try {
+    const results = await database.query(updatePasswordSQL, params);
+
+    console.log("Successfully retrieved users");
+    console.log(results[0]);
+    return results[0];
+  } catch (err) {
+    console.log("Error getting users");
+    console.log(err);
+    return false;
+  }
+}
+
 // get a user with coverage balance
 async function getUsers(postData) {
   let getUsersSQL = `
@@ -104,4 +151,11 @@ async function getUsers(postData) {
   }
 }
 
-module.exports = { signUpUser, getUser, getUserSchool };
+module.exports = {
+  signUpUser,
+  getUser,
+  getUserSchool,
+  getUserByEmail,
+  updatePassword,
+  getUsers,
+};
