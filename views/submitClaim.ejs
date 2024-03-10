@@ -1,17 +1,13 @@
-<!-- Sign Up Page Elements -->
 <%- include("templates/header") %>
 
-    <!-- Login Page CSS -->
     <link rel="stylesheet" href="/css/form.css">
     </head>
 
     <body>
         <%- include("templates/navbar") %>
 
-            <div class="login-container" style="padding-top: 150px;">
-                submit claim
-
-
+            <div class="form-container">
+                <h2>Submit a Claim</h2>
                 <!-- category -->
                 <form action='/submittingClaim' method='post'>
                     <select name='school'>
@@ -33,5 +29,4 @@
                 </form>
             </div>
 
-
-            <%- include("templates/footer") %>
+<%- include("templates/footer") %>

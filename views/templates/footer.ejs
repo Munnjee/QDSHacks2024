@@ -1,17 +1,19 @@
-    <!-- Include jQuery and Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script>
-        var menu = document.getElementById('menu');
+        <!-- Include jQuery and Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script>
+            window.onload = function () {
+                var menu = document.getElementById('menu');
 
-        function toggleMenu() {
-            menu.classList.toggle('open');
-        }
+                function toggleMenu() {
+                    menu.classList.toggle('open');
+                }
 
-        window.onclick = function(event) {
-            if (!menu.contains(event.target) && menu.classList.contains('open')) {
-                toggleMenu();
+                window.onclick = function (event) {
+                    if (!menu.contains(event.target) && menu.classList.contains('open')) {
+                        toggleMenu();
+                    }
+                }
             }
-        }
-    </script>
-  </body>
+        </script>
+    </body>
 </html>

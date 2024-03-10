@@ -2,49 +2,35 @@
 <%- include("templates/header") %>
 
     <!-- Login Page CSS -->
-    <link rel="stylesheet" href="/css/form.css">
+        <link rel="stylesheet" href="/css/profile.css">
     </head>
 
     <body>
-        <%- include("templates/navbar") %>
+<%- include("templates/navbar") %>
 
-            <div class="login-container" style="padding-top: 150px;">
-                profile
-
-
+        <div class="profile-container">
+            <div id="image-holder"><img src="../public/images/Logo.png" alt=""></div>
+            <h2><%=information.first_name %> <%=information.last_name %></h2>
+            
+            <div class="profile-info">
+                
                 <!-- category -->
-                <label for="username">user name: </label>
-                <%=information.user_name %><br>
+                <label for="username">Username:<p><%=information.user_name %></p></label>
+                                                
+                <label for="birthdate">Birthdate:<p><%=information.birthdate.toISOString().split('T')[0] %></p></label>
 
-                    <label for="first_name">first name: </label>
-                    <%=information.first_name %><br>
+                <label for="email">Email:<p><%=information.email %></p></label>
 
-                        <label for="last_name">last name: </label>
-                        <%=information.last_name %><br>
+                <label for="phone">Phone:<p><%=information.phone %></p></label>
 
-                            <label for="birthdate">birthdate:</label>
-                            <%= information.birthdate.toISOString().split('T')[0] %><br>
+                <label for="school_name">School Name:<p><%=information.school_name %></p></label>
 
-                                <label for="email">email: </label>
-                                <%=information.email %><br>
+                <label for="insurance_company">Insurance Company:<p><%=information.insurance_company %></p></label>
 
-                                    <label for="phone">phone: </label>
-                                    <%=information.phone %><br>
+                <label for="insurance_number">Insurance Number:<p><%=information.insurance_number %></p></label>
 
-                                        <label for="school_name">school name: </label>
-                                        <%=information.school_name %><br>
-
-                                            <label for="insurance_company">insurance company: </label>
-                                            <%=information.insurance_company %><br>
-
-                                                <label for="insurance_number">insurance number: </label>
-                                                <%=information.insurance_number %><br>
-
-                                                    <div class="button">
-                                                        <button type="button"
-                                                            onclick="window.location.href='editProfile'">Edit</button>
-                                                    </div>
+                <button class="submit-btn" type="button" onclick="window.location.href='editProfile'">EDIT</button>
             </div>
+        </div>
 
-
-            <%- include("templates/footer") %>
+<%- include("templates/footer") %>
