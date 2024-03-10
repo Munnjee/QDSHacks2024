@@ -36,6 +36,13 @@ const support_password = process.env.EDUHEALTH_SUPPORT_PASSWORD;
 const JWT_SECRET = process.env.JWT_SECRET;
 /* END secret section */
 
+/* Scheduling system */
+const cron = require("node-cron");
+
+cron.schedule("1,2,4,5 * * * *", () => {
+  console.log("running every minute 1, 2, 4 and 5");
+});
+
 app.set("view engine", "ejs");
 
 // parse application/json
@@ -111,6 +118,10 @@ app.get("/", async (req, res) => {
       school_name: req.session.school_name,
       information: updatedResults,
     });
+
+    cron.schedule("* * * * *", () => {
+      console.log("running a task every minute");
+    });
   }
 });
 
@@ -122,12 +133,12 @@ function calculateAndUpdateLimits(coverage_results, claim_results) {
         totalClaimAmount += parseFloat(claim.total_amount);
       }
     }
-    console.log(
-      "Total claim amount for category " +
-        coverage.category_name +
-        ": " +
-        totalClaimAmount
-    );
+    // console.log(
+    //   "Total claim amount for category " +
+    //     coverage.category_name +
+    //     ": " +
+    //     totalClaimAmount
+    // );
 
     // original limit is used to calculate the percentage
     coverage.originalLimit = coverage.limit;
@@ -141,10 +152,11 @@ function calculateAndUpdateLimits(coverage_results, claim_results) {
           coverage.limit
       );
     } else {
-      console.log(
-        "Warning: No limit found for category " + coverage.category_name
-      );
+      // console.log(
+      //   "Warning: No limit found for category " + coverage.category_name
+      // );
     }
+    coverage.remaininglimit = coverage.originalLimit - coverage.limit;
   }
 
   return coverage_results;
