@@ -100,7 +100,7 @@ app.post("/signingUp", async (req, res) => {
   bcrypt.hash(password, saltRounds, async (err, hash) => {
     if (err) {
       console.log(err);
-      res.redirect("/signup");
+      res.redirect("/");
     } else {
       hashedPassword = hash;
       var success = await db_users.signUpUser({
@@ -114,7 +114,7 @@ app.post("/signingUp", async (req, res) => {
       });
 
       if (success) {
-        res.render("login");
+        res.redirect("/login");
       } else {
         res.render("errorMessage", { error: "Failed to create user." });
       }
@@ -162,7 +162,7 @@ app.post("/loggingin", async (req, res) => {
     console.log(
       "invalid number of users matched: " + results.length + " (expected 1)."
     );
-    res.redirect("/login");
+    res.redirect("login");
   }
 
   res.render("login", { invalidUser: true });
