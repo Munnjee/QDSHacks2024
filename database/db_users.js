@@ -179,4 +179,11 @@ async function getUsers(postData) {
   }
 }
 
-module.exports = { signUpUser, getUser, getUserSchool };
+module.exports = {
+  signUpUser,
+  getUser,
+  getUserSchool,
+  getUserByEmail,
+  updatePassword,
+  getUsers,
+};
