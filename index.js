@@ -14,6 +14,7 @@ const database = include("databaseConnection");
 const db_utils = include("database/db_utils");
 const db_users = include("database/db_users");
 const db_school = include("database/db_school");
+const db_claims = include("database/db_claims");
 const db_categories = include("database/db_categories");
 const success = db_utils.printMySQLVersion();
 
