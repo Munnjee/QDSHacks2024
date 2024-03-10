@@ -303,4 +303,5 @@ module.exports = {
   getUserCoverageInformation,
   getUserId,
   getUserClaim,
+  getUserByEmail,
 };
