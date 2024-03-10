@@ -20,6 +20,7 @@
 
 header {
   position: fixed;
+  top: 0;
   display: flex;
   background-color: var(--accent1);
   justify-content: space-between;
@@ -29,7 +30,15 @@ header {
   padding-left: 10%;
   padding-right: 10%;
   width: 100vw;
+  --btnradius: 50px;
   z-index: 1;
+}
+
+.header_offset {
+  width: 100vw;
+  height: 60px;
+  position: fixed;
+  top: 0;
 }
 
 li,
