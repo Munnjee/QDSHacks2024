@@ -11,7 +11,10 @@ const MongoStore = require("connect-mongo");
 const jwt = require("jsonwebtoken"); // Import jsonwebtoken
 const nodemailer = require("nodemailer"); // Import nodemailer
 const WebsiteURL = "https://qdshacks2024.onrender.com/";
+<<<<<<< HEAD
 const Joi = require("joi");
+=======
+>>>>>>> 0635158 (Add the server side functionality for forgotpassword)
 
 // Hash passwords using BCrypt
 const bcrypt = require("bcrypt");
@@ -196,6 +199,10 @@ app.get("/forgotPassword", (req, res, next) => {
 // Sends the reset password email
 app.post("/forgotPassword", async (req, res, next) => {
   const { email } = req.body;
+<<<<<<< HEAD
+=======
+  console.log(email);
+>>>>>>> 0635158 (Add the server side functionality for forgotpassword)
   const user = await db_users.getUserByEmail({ email: email });
 
   if (!user) {
@@ -204,6 +211,10 @@ app.post("/forgotPassword", async (req, res, next) => {
     });
   } else {
     const secret = JWT_SECRET + user.password;
+<<<<<<< HEAD
+=======
+    console.log("secret" + secret);
+>>>>>>> 0635158 (Add the server side functionality for forgotpassword)
     const payload = {
       email: email,
       user_name: user.user_name,
@@ -251,12 +262,21 @@ app.post("/forgotPassword", async (req, res, next) => {
 });
 
 // Renders the reset password page
+<<<<<<< HEAD
 app.get("/resetPassword/:user_name/:token", async (req, res, next) => {
   // Get user email and token from url
   const { user_name, token } = req.params;
 
   // Find user in database
   const user = await db_users.getUserByEmail(user_name);
+=======
+app.get("/resetPassword/:id/:token", async (req, res, next) => {
+  // Get user email and token from url
+  const { email, token } = req.params;
+
+  // Find user in database
+  const user = await db_users.getUserByEmail(email);
+>>>>>>> 0635158 (Add the server side functionality for forgotpassword)
 
   // If user does not exist, return error message
   if (!user) {
@@ -274,8 +294,13 @@ app.get("/resetPassword/:user_name/:token", async (req, res, next) => {
   }
 });
 
+<<<<<<< HEAD
 app.post("/resetPassword/:user_name/:token", async (req, res, next) => {
   const { user_name, token } = req.params;
+=======
+app.post("/resetPassword/:id/:token", async (req, res, next) => {
+  const { id, token } = req.params;
+>>>>>>> 0635158 (Add the server side functionality for forgotpassword)
   const { newPassword } = req.body;
 
   const schema = Joi.object({
