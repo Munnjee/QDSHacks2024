@@ -224,6 +224,37 @@ app.get("/editProfile", async (req, res) => {
   }
 });
 
+app.post("/updateProfile", async (req, res) => {
+  var user_name = req.session.user_name;
+  var first_name = req.body.first_name;
+  var last_name = req.body.last_name;
+  var birthdate = req.body.birthdate;
+  var email = req.body.email;
+  var phone = req.body.phone;
+  var school_name = req.body.school_name;
+  var insurance_company = req.body.insurance_company;
+  var insurance_number = req.body.insurance_number;
+
+  var results = await db_users.updateUserProfile({
+    user_name: user_name,
+    first_name: first_name,
+    last_name: last_name,
+    birthdate: birthdate,
+    email: email,
+    phone: phone,
+    school_name: school_name,
+    insurance_company: insurance_company,
+    insurance_number: insurance_number
+  });
+
+  if(results){
+    res.redirect("/profile");
+  } else {
+    res.send("Error updating profile");
+  }
+});
+
+
 //Add insurance page
 app.get("/addInsurance", (req, res) => {
   res.render("addInsurance");

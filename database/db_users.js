@@ -194,10 +194,34 @@ async function getUserCoverageInformation(postData) {
   }
 }
 
+async function updateUserProfile(user) {
+  const { user_name, first_name, last_name, birthdate, email, phone, insurance_company, insurance_number } = user;
+
+  let sqlQuery = `
+    UPDATE user
+    SET first_name = ?, last_name = ?, birthdate = ?, email = ?, phone = ?
+    WHERE user_name = ?
+  `;
+
+  let params = [first_name, last_name, birthdate, email, phone, insurance_company, insurance_number, user_name];
+
+  try {
+    const results = await database.query(sqlQuery, params);
+    return results;
+  } catch (err) {
+    console.log("Error updating user profile");
+    console.log(err);
+    return false;
+  }
+}
+
+
 module.exports = {
   signUpUser,
   getUser,
   getUserSchool,
   getUserProfile,
   getUserCoverageInformation,
+  updateUserProfile,
 };
+

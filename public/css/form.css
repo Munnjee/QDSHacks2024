@@ -92,3 +92,13 @@ h2 {
 #signUpForm{
   width: 100%;
 }
+
+#image-holder {
+  margin: 10px auto;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
