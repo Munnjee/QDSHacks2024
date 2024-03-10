@@ -176,32 +176,3 @@ i {
   }
 }
 
-#chart {
-  position: relative;
-  top: calc(10px + 10px + 56px);
-  width: 100vw;
-  height: 50vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-
-svg {
-  display: block;
-  margin: auto
-}
-
-.chart_label {
-  font-weight: 500;
-  font-size: 16px;
-  fill: var(--accent1)
-}
-
-.bar1 {
-  fill: var(--accent2);
-
-}
-
-.bar2 {
-  fill: var(--accent4);
-}
