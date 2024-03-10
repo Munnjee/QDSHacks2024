@@ -63,6 +63,7 @@ CREATE TABLE `freedb_QDSHacks2024`.`category` (
   PRIMARY KEY (`category_id`));
 
 -- Foreign keys
+-- coverage table 
 ALTER TABLE `freedb_QDSHacks2024`.`coverage` 
 ADD INDEX `coverage_frn_category_id_idx` (`frn_category_id` ASC) VISIBLE,
 ADD INDEX `coverage_frn_insurance_id_idx` (`frn_insurance_id` ASC) VISIBLE;
@@ -78,6 +79,57 @@ ADD CONSTRAINT `coverage_frn_insurance_id`
   REFERENCES `freedb_QDSHacks2024`.`insurance` (`insurance_id`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+
+-- claim table
+ALTER TABLE `freedb_QDSHacks2024`.`claim` 
+ADD INDEX `claim_frn_user_school_id_idx` (`frn_user_school_id` ASC) VISIBLE,
+ADD INDEX `claim_frn_coverage_id_idx` (`frn_coverage_id` ASC) VISIBLE;
+;
+ALTER TABLE `freedb_QDSHacks2024`.`claim` 
+ADD CONSTRAINT `claim_frn_user_school_id`
+  FOREIGN KEY (`frn_user_school_id`)
+  REFERENCES `freedb_QDSHacks2024`.`user_school` (`user_school_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `claim_frn_coverage_id`
+  FOREIGN KEY (`frn_coverage_id`)
+  REFERENCES `freedb_QDSHacks2024`.`coverage` (`coverage_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+-- user_school table
+ALTER TABLE `freedb_QDSHacks2024`.`user_school` 
+ADD INDEX `user_school_frn_user_id_idx` (`frn_user_id` ASC) VISIBLE,
+ADD INDEX `user_school_frn_school_id_idx` (`frn_school_id` ASC) VISIBLE;
+;
+ALTER TABLE `freedb_QDSHacks2024`.`user_school` 
+ADD CONSTRAINT `user_school_frn_user_id`
+  FOREIGN KEY (`frn_user_id`)
+  REFERENCES `freedb_QDSHacks2024`.`user` (`user_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION,
+ADD CONSTRAINT `user_school_frn_school_id`
+  FOREIGN KEY (`frn_school_id`)
+  REFERENCES `freedb_QDSHacks2024`.`school` (`school_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+  -- school table
+ ALTER TABLE `freedb_QDSHacks2024`.`school` 
+ADD CONSTRAINT `school_frn_insurance_id`
+  FOREIGN KEY (`frn_insurance_id`)
+  REFERENCES `freedb_QDSHacks2024`.`insurance` (`insurance_id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+-- insurance table
+INSERT INTO `freedb_QDSHacks2024`.`insurance` (`insurance_company`, `insurance_number`) VALUES ('Canada Life', '330828');
+INSERT INTO `freedb_QDSHacks2024`.`insurance` (`insurance_company`, `insurance_number`) VALUES ('Pacific Blue Cross', '43979');
+INSERT INTO `freedb_QDSHacks2024`.`insurance` (`insurance_company`, `insurance_number`) VALUES ('Pacific Blue Cross', '79209');
+INSERT INTO `freedb_QDSHacks2024`.`insurance` (`insurance_company`, `insurance_number`) VALUES ('Pacific Blue Cross', '2953');
+INSERT INTO `freedb_QDSHacks2024`.`insurance` (`insurance_company`, `insurance_number`) VALUES ('Securian Canada', '97180');
+
 
 
 
@@ -170,113 +222,42 @@ WHERE school.school_name = 'BCIT';
 
 
 -- school
-1	BCIT	Canada Life
-2	UBC	Pacific Blue Cross
-3	Langara	Pacific Blue Cross
-4	SFU	Pacific Blue Cross
+INSERT INTO `freedb_QDSHacks2024`.`school` (`school_name`, `frn_insurance_id`) VALUES ('BCIT', '1');
+INSERT INTO `freedb_QDSHacks2024`.`school` (`school_name`, `frn_insurance_id`) VALUES ('UBC', '2');
+INSERT INTO `freedb_QDSHacks2024`.`school` (`school_name`, `frn_insurance_id`) VALUES ('Langara', '4');
+INSERT INTO `freedb_QDSHacks2024`.`school` (`school_name`, `frn_insurance_id`) VALUES ('SFU', '3');
 	
--- category
-1	Prescription Drug
-2	Vision
-3	Dental
-4	Travel
-	
+-- coverage SFU
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('3', '1', '80', '400');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('3', '2', '100', '360');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('3', '3', '70', '700');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('3', '4', '100', '5000000');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('3', '5', '50', '400');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('3', '6', '80', '400');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('3', '7', '50', '400');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('3', '8', '50', '400');
 
-SELECT school.school_id, school.school_name, insurance.insurance_id, insurance.insurance_company, insurance.insurance_number
-FROM school
-JOIN insurance ON school.frn_insurance_id = insurance.insurance_id;
-
-SELECT user_name, first_name, last_name, password, birthdate, email, phone
-FROM user
-JOIN userschool
-WHERE user_name = :user_name;
+-- coverage UBC
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('2', '1', '80', '400');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('2', '2', '100', '250');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('2', '3', '100', '750');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('2', '4', '100', '5000000');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('2', '5', '30', '400');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('2', '6', '80', '400');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('2', '7', '30', '400');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('2', '8', '100', '1250');
   
-  
-SELECT user.user_name, school.school_name, insurance.insurance_id, insurance.insurance_company, insurance.insurance_number,
-category.category_name, coverage.limit, coverage.percentage, claim.amount
-FROM user
-LEFT JOIN user_school ON user.user_id = user_school.frn_user_id
-JOIN claim ON user_school.user_school_id = claim.frn_user_school_id
-JOIN school ON user_school.frn_school_id = school.school_id
-JOIN insurance ON school.frn_insurance_id = insurance.insurance_id
-JOIN coverage ON insurance.insurance_id = coverage.frn_insurance_id
-JOIN category ON coverage.frn_category_id= category.category_id
-WHERE user.user_name = 'yongeun';
-
-
-
-
-SELECT user.user_name, school.school_name, insurance.insurance_id, insurance.insurance_company, insurance.insurance_number,
-category.category_name, coverage.limit, coverage.percentage, claim.amount
-FROM user
-LEFT JOIN user_school ON user.user_id = user_school.frn_user_id
-JOIN claim ON user_school.user_school_id = claim.frn_user_school_id
-JOIN school ON user_school.frn_school_id = school.school_id
-JOIN insurance ON school.frn_insurance_id = insurance.insurance_id
-JOIN coverage ON insurance.insurance_id = coverage.frn_insurance_id
-JOIN category ON coverage.frn_category_id= category.category_id
-WHERE user.user_name = 'yongeun' and school.school_id = 1;
-
-
-SELECT user.user_name, school.school_name, insurance.insurance_id, insurance.insurance_company, insurance.insurance_number,
-category.category_name, coverage.limit, coverage.percentage
-FROM user
-LEFT JOIN user_school ON user.user_id = user_school.frn_user_id
-JOIN school ON user_school.frn_school_id = school.school_id
-JOIN insurance ON school.frn_insurance_id = insurance.insurance_id
-JOIN coverage ON insurance.insurance_id = coverage.frn_insurance_id
-JOIN category ON coverage.frn_category_id= category.category_id
-WHERE user.user_name = 'yongeun' and school.school_name = 'BCIT';
-
-SELECT user.user_name, school_id, school_name
-FROM user
-JOIN user_school ON user.user_id = user_school.frn_user_id
-JOIN school ON user_school.frn_school_id = school.school_id
-WHERE user.user_name = 'test';
-
-INSERT INTO user
-
-SELECT school.school_id, school.school_name, insurance.insurance_id, insurance.insurance_company, insurance.insurance_number
-        FROM school
-        JOIN insurance ON school.frn_insurance_id = insurance.insurance_id;
-        
-        
-        SELECT user.user_name, school_id, school_name
-    FROM user
-    JOIN user_school ON user.user_id = user_school.frn_user_id
-    JOIN school ON user_school.frn_school_id = school.school_id
-    WHERE user.user_name ='test';
-
-INSERT INTO claim (column1, column2, column3)
-SELECT source_column1, source_column2, source_column3
-FROM source_table
-WHERE condition;
-
-    
-SELECT user_school.user_school_id, insurance.insurance_id, coverage.coverage_id, category.category_id
-		FROM user
-    JOIN user_school ON user.user_id = user_school.frn_user_id
-    JOIN school ON user_school.frn_school_id = school.school_id
-    JOIN insurance ON school.frn_insurance_id = insurance.insurance_id
-    JOIN coverage ON insurance.insurance_id = coverage.frn_insurance_id
-    JOIN category ON coverage.frn_category_id= category.category_id
-    WHERE user_name = 'test' and school_id = 1 and category_id;
-    
-SELECT user_school.user_school_id, insurance.insurance_id, coverage.coverage_id
-		FROM user
-    JOIN user_school ON user.user_id = user_school.frn_user_id
-    JOIN school ON user_school.frn_school_id = school.school_id
-    JOIN insurance ON school.frn_insurance_id = insurance.insurance_id
-    JOIN coverage ON insurance.insurance_id = coverage.frn_insurance_id
-    JOIN category ON coverage.frn_category_id= category.category_id
-    WHERE user.user_name = 'test' and school.school_id = 1 and category.category_id = 2;
-    
-    
-    
-SELECT category.category_name, category.category_id
-FROM user
-JOIN user_school ON user.user_id = user_school.frn_user_id
-JOIN claim ON user_school.user_school_id = claim.frn_user_school_id
-JOIN coverage ON claim.frn_coverage_id = coverage.coverage_id
-JOIN category ON coverage.frn_category_id = category.category_id
-WHERE user_name = 'test';
+-- coverage langara
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('4', '1', '90', '400');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('4', '2', '100', '300');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('4', '3', '60', '750');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('4', '4', '100', '5000000');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('4', '5', '30', '400');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('4', '6', '80', '400');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('4', '7', '80', '400');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('4', '8', '100', '500');
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('4', '8', '100', '500');
+<<<<<<< HEAD
+INSERT INTO `freedb_QDSHacks2024`.`coverage` (`frn_insurance_id`, `frn_category_id`, `percentage`, `limit`) VALUES ('4', '8', '100', '500');
+=======
+>>>>>>> 677d23cc31b2eec56583cf424d9f4138c38cf849
