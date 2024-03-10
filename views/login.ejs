@@ -1,69 +1,32 @@
+<!-- Login Page Elements -->
 <%- include("templates/header") %>
-    <style>
-        .login-container {
-            background-color: #fff;
-            padding: 70px 40px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin: 30px;
-            /* Add margin to create space between header and login container */
-        }
+    
+    <!-- Login Page CSS -->
+    <link rel="stylesheet" href="/css/form.css">
+  </head>
+  <body>
+<%- include("templates/navbar") %>
 
-        .login-container h2 {
-            text-align: center;
-            padding: 50px;
-            background-color: white;
-            margin: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        .form-group button {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .form-group button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-    log in
-    <div>
-        <form action='/loggingin' method='post'>
-            <label for="user_name">user name</label>
-            <input name='user_name' type='text' placeholder='username'>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input name="password" type="password" placeholder="Enter your password">
-            </div>
-
-            <div class="button">
-                <button type="submit">Submit</button>
-            </div>
-        </form>
+    <div class="form-container">
+      <h2>LOGIN</h2>
+      <form class="form" method="post" action="/loggingin" id="loginForm">
+        <label class="input-box" for="username">
+          <input type="text" placeholder="Username" class="input-field" name="username" />
+          <a class="forgot-btn" onclick="location.href='/find_username';">
+            Forgot
+          </a>
+        </label>
+        <label class="input-box" for="password">
+          <input type="password" placeholder="Password" class="input-field" name="password" /><a class="forgot-btn"
+            onclick="location.href='/forgot';">
+            Reset
+          </a>
+        </label>
+        <button class="submit-btn" id="submit-btn" type="submit">LOGIN</button>
+      </form>
+      <button class="link-btn" onclick="location.href='/signup';">
+        Don't have an account?<br>Register here.
+      </button>
     </div>
+
     <%- include("templates/footer") %>
