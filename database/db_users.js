@@ -3,58 +3,30 @@ const database = include("databaseConnection");
 // Sign up a user
 async function signUpUser(postData) {
   let signUpUserSQL = `
-    INSERT INTO user
-      (user_name, first_name, last_name, password, birthdate, email, phone)
-      VALUES
-      (?, ?, ?, ?, ?, ?, ?);
-  `;
-
-  let insertUserSchoolSQL = `
-    INSERT INTO user_school
-      (frn_user_id, frn_school_id) 
-      VALUES
-      (?, ?);
-  `;
-
-  let params = [
-    postData.user_name,
-    postData.first_name,
-    postData.last_name,
-    postData.password,
-    postData.birthdate,
-    postData.email,
-    postData.phone,
-  ];
-
+		INSERT INTO user
+		(user_name, first_name, last_name, password, birthdate, email, phone)
+		VALUES
+		(:user_name, :first_name, :last_name, :password, :birthdate, :email, :phone);
+	`;
+  let params = {
+    user_name: postData.user_name,
+    first_name: postData.first_name,
+    last_name: postData.last_name,
+    password: postData.password,
+    birthdate: postData.birthdate,
+    email: postData.email,
+    phone: postData.phone,
+  };
   try {
-    // 쿼리 실행
-    const userResult = await executeQuery(database, signUpUserSQL, params);
-    const userId = userResult.insertId;
+    const results = await database.query(signUpUserSQL, params);
     console.log("Successfully created user");
-
-    const userSchoolResult = await executeQuery(database, insertUserSchoolSQL, [
-      userId,
-      postData.school_id,
-    ]);
-    console.log("Successfully created user_school");
-    return userSchoolResult;
+    console.log(results[0]);
+    return true;
   } catch (err) {
     console.log("Error inserting user");
-    console.error(err);
+    console.log(err);
     return false;
   }
-}
-
-function executeQuery(connection, sql, params) {
-  return new Promise((resolve, reject) => {
-    connection.query(sql, params, (err, results) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(results);
-      }
-    });
-  });
 }
 
 // Get a user

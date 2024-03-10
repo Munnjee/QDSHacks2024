@@ -13,7 +13,7 @@ const saltRounds = 12;
 const database = include("databaseConnection");
 const db_utils = include("database/db_utils");
 const db_users = include("database/db_users");
-const db_school = include("database/db_school");
+const db_schools = include("database/db_schools");
 const db_claims = include("database/db_claims");
 const db_categories = include("database/db_categories");
 const success = db_utils.printMySQLVersion();
@@ -96,7 +96,7 @@ app.get("/", async (req, res) => {
 //Signup page
 app.get("/signUp", async (req, res) => {
   try {
-    var schools = await db_school.getSchools({}); // 학교 목록을 가져옴
+    var schools = await db_schools.getSchools({}); // 학교 목록을 가져옴
     schools = schools[0];
     res.render("signUp", {
       schools: schools,
@@ -134,11 +134,22 @@ app.post("/signingUp", async (req, res) => {
         birthdate: birthdate,
         email: email,
         phone: phone,
-        school_id: school_id,
       });
 
       if (success) {
-        res.redirect("/login");
+        var user_id = await db_users.getUserId({
+          user_name: user_name,
+        });
+
+        user_id = user_id[0].user_id;
+        var success_school = await db_schools.signUpSchool({
+          frn_user_id: user_id,
+          frn_school_id: school_id,
+        });
+
+        if (success_school) {
+          res.redirect("/login");
+        }
       } else {
         res.render("errorMessage", { error: "Failed to create user." });
       }
@@ -222,7 +233,7 @@ app.get("/editProfile", async (req, res) => {
     user_name: user_name,
   });
 
-  var schools = await db_school.getSchools({});
+  var schools = await db_schools.getSchools({});
   schools = schools[0];
   console.log(schools);
   if (results && results.length > 0) {
@@ -248,7 +259,7 @@ app.get("/inbox", (req, res) => {
 //Submit claim page
 app.get("/submitClaim", async (req, res) => {
   try {
-    var schools = await db_school.getMySchools({
+    var schools = await db_schools.getMySchools({
       user_name: req.session.user_name,
     }); // 학교 목록을 가져옴
     var categories = await db_categories.getCategories({}); // 카테고리 목록을 가져옴
