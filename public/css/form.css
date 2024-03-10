@@ -1,0 +1,94 @@
+h2 {
+  color: var(--accent1);
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+.form-container{
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container {
+  margin-top: 60px;
+  min-width: 250px;
+  width: 20vw;
+  max-width: 400px;
+  height: 50vh;
+  min-height: 750px;
+  max-height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.submit-btn {
+  padding-left: 25px;
+  padding-right: 25px;
+  color: var(--accent5);
+  background-color: var(--accent1);
+  border: none;
+  border-radius: var(--btnradius);
+  cursor: pointer;
+  display: block;
+  margin: 0 auto;
+}
+
+.submit-btn:active{
+  color: var(--accent1);
+}
+
+.link-btn {
+  color: var(--accent1);
+  background: none;
+  text-decoration: underline;
+}
+
+.link-btn:hover {
+  text-decoration: none;
+  background-color: transparent;
+  color: var(--accent2);
+}
+
+.link-btn:active {
+  color: var(--accent1)
+}
+
+.input-box {
+  text-align: left;
+  border-radius: var(--btnradius);
+  background-color: white;
+  border: 1px solid var(--accent1);
+  margin-bottom: 0.5em;
+  display: flex;
+}
+
+.input-field {
+  border-radius: var(--btnradius);
+  padding: 1em;
+  border: none;
+  width: 100%;
+}
+
+.forgot-btn {
+  font-size: 13px;
+  color: var(--accent2);
+  width: 25%;
+  padding: 1em;
+  text-align: right;
+  text-decoration: underline;
+}
+
+.forgot-btn:hover {
+  text-decoration: none;
+}
+
+.forgot-btn:active {
+  color: var(--accent1)
+}
+
+#signUpForm{
+  width: 100%;
+}
