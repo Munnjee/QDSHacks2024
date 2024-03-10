@@ -189,10 +189,6 @@ app.get("/forgotPassword", (req, res, next) => {
 // Sends the reset password email
 app.post("/forgotPassword", async (req, res, next) => {
   const { email } = req.body;
-<<<<<<< HEAD
-=======
-  console.log(email);
->>>>>>> 0635158 (Add the server side functionality for forgotpassword)
   const user = await db_users.getUserByEmail({ email: email });
 
   if (!user) {
@@ -201,10 +197,6 @@ app.post("/forgotPassword", async (req, res, next) => {
     });
   } else {
     const secret = JWT_SECRET + user.password;
-<<<<<<< HEAD
-=======
-    console.log("secret" + secret);
->>>>>>> 0635158 (Add the server side functionality for forgotpassword)
     const payload = {
       email: email,
       user_name: user.user_name,
