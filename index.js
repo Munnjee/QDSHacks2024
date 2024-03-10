@@ -75,9 +75,19 @@ app.get("/", async (req, res) => {
   if (!req.session.authenticated) {
     res.render("login");
   } else {
+    var user_name = req.session.user_name;
+    var school_name = req.session.school_name;
+    var results = await db_users.getUserCoverageInformation({
+      user_name: user_name,
+      school_name: school_name,
+    });
+
+    console.log(results[0]);
+
     res.render("index", {
-      user_name: req.session.user_name,
-      school: req.session.school,
+      user_name: user_name,
+      school_name: req.session.school_name,
+      information: results,
     });
   }
 });
@@ -150,10 +160,8 @@ app.post("/loggingin", async (req, res) => {
       if (bcrypt.compareSync(password, results[0].password)) {
         req.session.authenticated = true;
         req.session.user_name = user_name;
-        req.session.school = results[0].school_name;
+        req.session.school_name = results[0].school_name;
         req.session.cookie.maxAge = expireTime;
-
-        console.log(req.session.school);
 
         res.redirect("/");
         return;
@@ -186,7 +194,10 @@ app.get("/profile", async (req, res) => {
     user_name: user_name,
   });
   if (results && results.length > 0) {
-    res.render("profile", { information: results[0] });
+    res.render("profile", {
+      information: results[0],
+      school_name: req.session.school_name,
+    });
   } else {
     res.render("profile", { information: null }); // 사용자 정보를 찾을 수 없는 경우
   }
@@ -203,7 +214,10 @@ app.get("/editProfile", async (req, res) => {
   schools = schools[0];
   console.log(schools);
   if (results && results.length > 0) {
-    res.render("editProfile", { information: results[0] });
+    res.render("editProfile", {
+      information: results[0],
+      school_name: req.session.school_name,
+    });
   } else {
     res.render("404");
   }

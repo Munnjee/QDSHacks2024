@@ -1,42 +1,50 @@
+<!-- Sign Up Page Elements -->
 <%- include("templates/header") %>
 
-    <div class="login-container" style="padding-top: 150px;">
-        profile
+    <!-- Login Page CSS -->
+    <link rel="stylesheet" href="/css/form.css">
+    </head>
+
+    <body>
+        <%- include("templates/navbar") %>
+
+            <div class="login-container" style="padding-top: 150px;">
+                profile
 
 
-        <!-- category -->
-        <label for="username">user name: </label>
-        <%=information.user_name %><br>
+                <!-- category -->
+                <label for="username">user name: </label>
+                <%=information.user_name %><br>
 
-            <label for="first_name">first name: </label>
-            <%=information.first_name %><br>
+                    <label for="first_name">first name: </label>
+                    <%=information.first_name %><br>
 
-                <label for="last_name">last name: </label>
-                <%=information.last_name %><br>
+                        <label for="last_name">last name: </label>
+                        <%=information.last_name %><br>
 
-                    <label for="birthdate">birthdate:</label>
-                    <%= information.birthdate.toISOString().split('T')[0] %><br>
+                            <label for="birthdate">birthdate:</label>
+                            <%= information.birthdate.toISOString().split('T')[0] %><br>
 
-                        <label for="email">email: </label>
-                        <%=information.email %><br>
+                                <label for="email">email: </label>
+                                <%=information.email %><br>
 
-                            <label for="phone">phone: </label>
-                            <%=information.phone %><br>
+                                    <label for="phone">phone: </label>
+                                    <%=information.phone %><br>
 
-                                <label for="school_name">school name: </label>
-                                <%=information.school_name %><br>
+                                        <label for="school_name">school name: </label>
+                                        <%=information.school_name %><br>
 
-                                    <label for="insurance_company">insurance company: </label>
-                                    <%=information.insurance_company %><br>
+                                            <label for="insurance_company">insurance company: </label>
+                                            <%=information.insurance_company %><br>
 
-                                        <label for="insurance_number">insurance number: </label>
-                                        <%=information.insurance_number %><br>
+                                                <label for="insurance_number">insurance number: </label>
+                                                <%=information.insurance_number %><br>
 
-                                            <div class="button">
-                                                <button type="button"
-                                                    onclick="window.location.href='editProfile'">Edit</button>
-                                            </div>
-    </div>
+                                                    <div class="button">
+                                                        <button type="button"
+                                                            onclick="window.location.href='editProfile'">Edit</button>
+                                                    </div>
+            </div>
 
 
-    <%- include("templates/footer") %>
+            <%- include("templates/footer") %>

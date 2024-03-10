@@ -6,28 +6,31 @@
     </head>
 
     <body>
-        <%- include("templates/navbar") %>
+        <header>
+            <p class="logo"><img class="logo_img" src="/images/logo.png" alt="EduHealth">EduHealth</p>
+        </header>
+        <div class="header_offset">offset</div>
 
-            <div class="form-container">
-                <h2>LOGIN</h2>
-                <form class="form" method="post" action="/loggingin" id="loginForm">
-                    <label class="input-box" for="username">
-                        <input type="text" placeholder="Username" class="input-field" name="user_name" />
-                        <a class="forgot-btn" onclick="location.href='/find_username';">
-                            Forgot
-                        </a>
-                    </label>
-                    <label class="input-box" for="password">
-                        <input type="password" placeholder="Password" class="input-field" name="password" /><a
-                            class="forgot-btn" onclick="location.href='/forgot';">
-                            Reset
-                        </a>
-                    </label>
-                    <button class="submit-btn" id="submit-btn" type="submit">LOGIN</button>
-                </form>
-                <button class="link-btn" onclick="location.href='/signup';">
-                    Don't have an account?<br>Register here.
-                </button>
-            </div>
+        <div class="form-container">
+            <h2>LOGIN</h2>
+            <form class="form" method="post" action="/loggingin" id="loginForm">
+                <label class="input-box" for="username">
+                    <input type="text" placeholder="Username" class="input-field" name="user_name" />
+                    <a class="forgot-btn" onclick="location.href='/find_username';">
+                        Forgot
+                    </a>
+                </label>
+                <label class="input-box" for="password">
+                    <input type="password" placeholder="Password" class="input-field" name="password" /><a
+                        class="forgot-btn" onclick="location.href='/forgot';">
+                        Reset
+                    </a>
+                </label>
+                <button class="submit-btn" id="submit-btn" type="submit">LOGIN</button>
+            </form>
+            <button class="link-btn" onclick="location.href='/signup';">
+                Don't have an account?<br>Register here.
+            </button>
+        </div>
 
-            <%- include("templates/footer") %>
+        <%- include("templates/footer") %>

@@ -1,22 +1,20 @@
 <header>
-    <p class="logo"><img class="logo_img" src="/images/logo.png" alt="EduHealth">EduHealth</p>
+    <p class="logo" onclick="window.location.href='/'"><img class="logo_img" src="/images/logo.png"
+            alt="EduHealth">EduHealth</p>
     <input type="checkbox" id="click">
     <label for="click" class="menu-btn">
         <i class="fas fa-bars"></i>
     </label>
 
     <ul class="nav_li">
-        <li><a class="active" href="/">Profile</a></li>
-        <li><a href="#">Plan #1</a></li>
-        <li><a href="#">Plan #2</a></li>
-        <li><a href="/inbox">Inbox</a></li>
-        <li><a href="#"><button><i class="fa-solid fa-plus"></i></button></a></li>
-        <% if (school) { %>
+        <li><a class="active" href="/profile">Profile</a></li>
+        <% if (school_name) { %>
             <li><a href="#">
-                    <%= school %>
+                    <%= school_name %>
                 </a></li>
             <% } %>
-                <li><a href="#">Plan #2</a></li>
+                <!-- <li><a href="#">Plan #2</a></li> -->
+                <li><a href="/inbox">Inbox</a></li>
                 <li><a href="#"><button><i class="fa-solid fa-plus"></i></button></a></li>
     </ul>
 

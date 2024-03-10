@@ -1,37 +1,41 @@
 <!-- Sign Up Page Elements -->
 <%- include("templates/header") %>
-    
+
     <!-- Login Page CSS -->
     <link rel="stylesheet" href="/css/form.css">
-  </head>
-  <body>
-<%- include("templates/navbar") %>
+    </head>
 
-    <div class="form-container">
-        <h2>SIGN UP</h2>
-        <form class = "form" action='/signingUp' method='post' id="signUpForm">
-            <label class = "input-box" for="username">
-                <input class = "input-field" name='user_name' type='text' placeholder='Username'>
-            </label>
-            <label class = "input-box" for="first_name">
-                <input class = "input-field" name='first_name' type='text' placeholder='First Name'>
-            </label>
-            <label class = "input-box" for="last_name">
-                <input class = "input-field" name='last_name' type='text' placeholder='Last Name'>
-            </label>
-            <label class = "input-box" for="password">
-                <input class = "input-field" name='password' type='password' placeholder='Password'>
-            </label>
-            <label class = "input-box" for="birthdate">
-                <input class = "input-field" name='birthdate' type='date' placeholder='Birthdate'>
-            </label>
-            <label class = "input-box" for="email">
-                <input class = "input-field" name='email' type='email' placeholder='Email'>
-            </label>
-            <label class = "input-box" for="phone">
-                <input class = "input-field" name='phone' type='text' placeholder='Phone'>
-            </label>
-            <button class="submit-btn" id="submit-btn" type="submit">SIGN UP</button>
-        </form>
-    </div>
-<%- include("templates/footer") %>
+    <body>
+        <header>
+            <p class="logo"><img class="logo_img" src="/images/logo.png" alt="EduHealth">EduHealth</p>
+        </header>
+        <div class="header_offset">offset</div>
+
+        <div class="form-container">
+            <h2>SIGN UP</h2>
+            <form class="form" action='/signingUp' method='post' id="signUpForm">
+                <label class="input-box" for="username">
+                    <input class="input-field" name='user_name' type='text' placeholder='Username'>
+                </label>
+                <label class="input-box" for="first_name">
+                    <input class="input-field" name='first_name' type='text' placeholder='First Name'>
+                </label>
+                <label class="input-box" for="last_name">
+                    <input class="input-field" name='last_name' type='text' placeholder='Last Name'>
+                </label>
+                <label class="input-box" for="password">
+                    <input class="input-field" name='password' type='password' placeholder='Password'>
+                </label>
+                <label class="input-box" for="birthdate">
+                    <input class="input-field" name='birthdate' type='date' placeholder='Birthdate'>
+                </label>
+                <label class="input-box" for="email">
+                    <input class="input-field" name='email' type='email' placeholder='Email'>
+                </label>
+                <label class="input-box" for="phone">
+                    <input class="input-field" name='phone' type='text' placeholder='Phone'>
+                </label>
+                <button class="submit-btn" id="submit-btn" type="submit">SIGN UP</button>
+            </form>
+        </div>
+        <%- include("templates/footer") %>

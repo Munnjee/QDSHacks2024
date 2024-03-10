@@ -1,108 +1,120 @@
 <%- include("templates/header") %>
   </head>
-<body>
-  <%- include("templates/navbar") %>
-<div id="chart">
-    Hello, <%=user_name %>
 
-  </div>
+  <body>
+    <%- include("templates/navbar") %>
+      <div id="chart">
+        Hello, <%=user_name %>
 
-  <script>
-    window.addEventListener("resize", function () {
-      // Clear the existing SVG if it exists
-      d3.select("#chart").select("svg").remove();
+      </div>
+      <div id="dataset" data='<%- JSON.stringify(information) %>'></div>
+      <script>
+        window.addEventListener("resize", function () {
+          // Clear the existing SVG if it exists
+          d3.select("#chart").select("svg").remove();
 
-      let data = [
-        { title: "Prescription", limit: 100, amountPaid: 45 },
-        { title: "Dental", limit: 50, amountPaid: 30 },
-        { title: "Vision", limit: 100, amountPaid: 10 },
-        { title: "Chiro", limit: 100, amountPaid: 80 },
-        { title: "Massage", limit: 100, amountPaid: 20 },
-        { title: "Physio", limit: 100, amountPaid: 40 },
-        { title: "Psych", limit: 100, amountPaid: 50 },
-        { title: "Other", limit: 100, amountPaid: 25 },
-        // add more categories as needed
-      ];
+          let datasetElement = document.getElementById("dataset");
+          let information = JSON.parse(datasetElement.getAttribute("data"));
 
-      let barHeight = 20; // Set the height of the bars
-      let barSpacing = 30; // Set the spacing between the bars
+          let data = information.map(function (info) {
+            return {
+              title: info.category_name,
+              limit: info.limit,
+              amountPaid: info.percentage
+            };
+          });
 
-      // Set the dimensions of the canvas
-      let margin = { top: 20, right: 40, bottom: 70, left: 40 },
-        width = window.innerWidth - margin.left - margin.right, // Use the width of the window's content area
-        height = data.length * (barHeight + barSpacing); // Calculate the height based on the number of data points
-      // Set the ranges
-      let y = d3.scaleBand().range([height, 0]).padding(0.1);
-      let x = d3.scaleLinear().range([0, width]);
+          // let data = [
+          //   { title: "Prescription", limit: 100, amountPaid: 45 },
+          //   { title: "Dental", limit: 50, amountPaid: 30 },
+          //   { title: "Vision", limit: 100, amountPaid: 10 },
+          //   { title: "Chiro", limit: 100, amountPaid: 80 },
+          //   { title: "Massage", limit: 100, amountPaid: 20 },
+          //   { title: "Physio", limit: 100, amountPaid: 40 },
+          //   { title: "Psych", limit: 100, amountPaid: 50 },
+          //   { title: "Other", limit: 100, amountPaid: 25 },
+          //   // add more categories as needed
+          // ];
 
-      // Define the canvas
-      let svg = d3
-        .select("#chart")
-        .append("svg") // select the div with id "charts"
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+          let barHeight = 20; // Set the height of the bars
+          let barSpacing = 30; // Set the spacing between the bars
 
-      // Scale the range of the data
-      x.domain([0, 100]); // x-axis now represents percentage
-      y.domain(
-        data.map(function (d) {
-          return d.title;
-        })
-      );
+          // Set the dimensions of the canvas
+          let margin = { top: 20, right: 40, bottom: 70, left: 40 },
+            width = window.innerWidth - margin.left - margin.right, // Use the width of the window's content area
+            height = data.length * (barHeight + barSpacing); // Calculate the height based on the number of data points
+          // Set the ranges
+          let y = d3.scaleBand().range([height, 0]).padding(0.1);
+          let x = d3.scaleLinear().range([0, width]);
 
-      // Add the rectangles for the bar chart
-      svg
-        .selectAll(".bar2")
-        .data(data)
-        .enter()
-        .append("rect")
-        .attr("class", "bar2")
-        .attr("width", function (d) {
-          return x(100);
-        }) // limit always spans 100%
-        .attr("y", function (d) {
-          return y(d.title);
-        })
-        .attr("height", barHeight)
-        .attr("rx", 5)
-        .attr("ry", 5);
+          // Define the canvas
+          let svg = d3
+            .select("#chart")
+            .append("svg") // select the div with id "charts"
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      svg
-        .selectAll(".bar1")
-        .data(data)
-        .enter()
-        .append("rect")
-        .attr("class", "bar1")
-        .attr("width", function (d) {
-          return x((d.amountPaid / d.limit) * 100);
-        }) // calculate percentage
-        .attr("y", function (d) {
-          return y(d.title);
-        })
-        .attr("height", barHeight)
-        .attr("rx", 5)
-        .attr("ry", 5);
+          // Scale the range of the data
+          x.domain([0, 100]); // x-axis now represents percentage
+          y.domain(
+            data.map(function (d) {
+              return d.title;
+            })
+          );
 
-      // Add the category titles above each bar
-      svg
-        .selectAll(".text")
-        .data(data)
-        .enter()
-        .append("text")
-        .attr("class", "chart_label")
-        .attr("x", function (d) {
-          return 0;
-        })
-        .attr("y", function (d) {
-          return y(d.title) - 5;
-        })
-        .text(function (d) {
-          return d.title;
+          // Add the rectangles for the bar chart
+          svg
+            .selectAll(".bar2")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class", "bar2")
+            .attr("width", function (d) {
+              return x(100);
+            }) // limit always spans 100%
+            .attr("y", function (d) {
+              return y(d.title);
+            })
+            .attr("height", barHeight)
+            .attr("rx", 5)
+            .attr("ry", 5);
+
+          svg
+            .selectAll(".bar1")
+            .data(data)
+            .enter()
+            .append("rect")
+            .attr("class", "bar1")
+            .attr("width", function (d) {
+              return x((d.amountPaid / d.limit) * 100);
+            }) // calculate percentage
+            .attr("y", function (d) {
+              return y(d.title);
+            })
+            .attr("height", barHeight)
+            .attr("rx", 5)
+            .attr("ry", 5);
+
+          // Add the category titles above each bar
+          svg
+            .selectAll(".text")
+            .data(data)
+            .enter()
+            .append("text")
+            .attr("class", "chart_label")
+            .attr("x", function (d) {
+              return 0;
+            })
+            .attr("y", function (d) {
+              return y(d.title) - 5;
+            })
+            .text(function (d) {
+              return d.title;
+            });
         });
-    });
-    window.dispatchEvent(new Event("resize"));
-  </script>
+        window.dispatchEvent(new Event("resize"));
+      </script>
 
-  <%- include("templates/footer") %>
+      <%- include("templates/footer") %>

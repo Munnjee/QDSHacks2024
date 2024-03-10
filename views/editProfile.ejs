@@ -1,24 +1,32 @@
+<!-- Sign Up Page Elements -->
 <%- include("templates/header") %>
 
-    <div class="login-container" style="padding-top: 150px;">
-        profile
+    <!-- Login Page CSS -->
+    <link rel="stylesheet" href="/css/form.css">
+    </head>
+
+    <body>
+        <%- include("templates/navbar") %>
+
+            <div class="login-container" style="padding-top: 150px;">
+                profile
 
 
-        <!-- category -->
-        <label for="username">user name: </label>
-        <input name='user_name' type='text' placeholder='<%=information.user_name %>' readonly><br>
+                <!-- category -->
+                <label for="username">user name: </label>
+                <input name='user_name' type='text' placeholder='<%=information.user_name %>' readonly><br>
 
-        <label for="first_name">first name: </label>
-        <input name='user_name' type='text' placeholder='<%=information.first_name %>'><br>
+                <label for="first_name">first name: </label>
+                <input name='user_name' type='text' placeholder='<%=information.first_name %>'><br>
 
-        <label for="last_name">last name: </label>
-        <input name='user_name' type='text' placeholder='<%=information.last_name %>'><br>
+                <label for="last_name">last name: </label>
+                <input name='user_name' type='text' placeholder='<%=information.last_name %>'><br>
 
-        <label for="birthdate">birthdate:</label>
-        <input name='user_name' type='text' placeholder='<%=information.birthdate %>'><br>
+                <label for="birthdate">birthdate:</label>
+                <input name='user_name' type='text' placeholder='<%=information.birthdate %>'><br>
 
-        <label for="email">email: </label>
-        <input name='user_name' type='text' placeholder='<%=information.email %>''><br>
+                <label for="email">email: </label>
+                <input name='user_name' type='text' placeholder='<%=information.email %>''><br>
 
         <label for="phone">phone: </label>
         <input name=' user_name' type='text' placeholder='<%=information.phone %>''><br>
@@ -26,16 +34,16 @@
         <label for="school_name">school name: </label>
         <input name=' user_name' type='text' placeholder='username'><br>
 
-        <label for="insurance_company">insurance company: </label>
-        <input name='user_name' type='text' placeholder='username'><br>
+                <label for="insurance_company">insurance company: </label>
+                <input name='user_name' type='text' placeholder='username'><br>
 
-        <label for="insurance_number">insurance number: </label>
-        <input name='user_name' type='text' placeholder='username'><br>
+                <label for="insurance_number">insurance number: </label>
+                <input name='user_name' type='text' placeholder='username'><br>
 
-        <div class="button">
-            <button type="button" onclick="window.location.href='profile'">Submit</button>
-        </div>
-    </div>
+                <div class="button">
+                    <button type="button" onclick="window.location.href='profile'">Submit</button>
+                </div>
+            </div>
 
 
-    <%- include("templates/footer") %>
+            <%- include("templates/footer") %>
