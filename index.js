@@ -268,6 +268,7 @@ app.get("/logout", (req, res) => {
 });
 
 //Profile page
+app.use("/profile", sessionValidation);
 app.get("/profile", async (req, res) => {
   var user_name = req.session.user_name;
   var results = await db_users.getUserProfile({
@@ -284,6 +285,7 @@ app.get("/profile", async (req, res) => {
 });
 
 //Edit profile page
+app.use("/editProfile", sessionValidation);
 app.get("/editProfile", async (req, res) => {
   var user_name = req.session.user_name;
   var results = await db_users.getUserProfile({
@@ -438,16 +440,19 @@ app.post("/resetPassword/:user_name/:token", async (req, res, next) => {
 /* Password Recovery Section end */
 
 //Add insurance page
+app.use("/addInsurance", sessionValidation);
 app.get("/addInsurance", (req, res) => {
   res.render("addInsurance");
 });
 
 //Inbox page
+app.use("/inbox", sessionValidation);
 app.get("/inbox", (req, res) => {
   res.render("inbox", { school_name: req.session.school_name });
 });
 
 //Submit claim page
+app.use("/submitClaim", sessionValidation);
 app.get("/submitClaim", async (req, res) => {
   try {
     var schools = await db_schools.getMySchools({
