@@ -13,6 +13,7 @@ const saltRounds = 12;
 const database = include("databaseConnection");
 const db_utils = include("database/db_utils");
 const db_users = include("database/db_users");
+const db_school = include("database/db_school");
 const db_categories = include("database/db_categories");
 const success = db_utils.printMySQLVersion();
 
@@ -177,7 +178,6 @@ app.get("/logout", (req, res) => {
 //Profile page
 app.get("/profile", async (req, res) => {
   var user_name = req.session.user_name;
-  console.log("user_name: " + user_name);
   var results = await db_users.getUserProfile({
     user_name: user_name,
   });
@@ -185,6 +185,23 @@ app.get("/profile", async (req, res) => {
     res.render("profile", { information: results[0] });
   } else {
     res.render("profile", { information: null }); // 사용자 정보를 찾을 수 없는 경우
+  }
+});
+
+//Edit profile page
+app.get("/editProfile", async (req, res) => {
+  var user_name = req.session.user_name;
+  var results = await db_users.getUserProfile({
+    user_name: user_name,
+  });
+
+  var schools = await db_school.getSchools({});
+  schools = schools[0];
+  console.log(schools);
+  if (results && results.length > 0) {
+    res.render("editProfile", { information: results[0] });
+  } else {
+    res.render("404");
   }
 });
 

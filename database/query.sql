@@ -45,6 +45,16 @@
   `frn_coverage_id` INT NOT NULL,
   `amount` INT NOT NULL,
   PRIMARY KEY (`claim_id`));
+  
+  SELECT  user.user_name, user.first_name, user.last_name, user.birthdate, user.email, user.phone, school.school_name, insurance.insurance_company, insurance.insurance_number
+    FROM user
+    JOIN user_school ON user.user_id = user_school.frn_user_id
+    JOIN school ON user_school.frn_school_id = school.school_id
+    JOIN insurance ON school.frn_insurance_id = insurance.insurance_id
+    WHERE user.user_name = 'yongeun';
+    
+  
+SELECT * FROM category;
 
 
 CREATE TABLE `freedb_QDSHacks2024`.`category` (
@@ -172,5 +182,9 @@ WHERE school.school_name = 'BCIT';
 4	Travel
 	
 
-  
+SELECT school.school_id, school.school_name, insurance.insurance_id, insurance.insurance_company, insurance.insurance_number
+FROM school
+JOIN insurance ON school.frn_insurance_id = insurance.insurance_id
+
+
   
