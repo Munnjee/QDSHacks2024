@@ -94,8 +94,17 @@ app.get("/", async (req, res) => {
 });
 
 //Signup page
-app.get("/signUp", (req, res) => {
-  res.render("signUp");
+app.get("/signUp", async (req, res) => {
+  try {
+    var schools = await db_school.getSchools({}); // 학교 목록을 가져옴
+    schools = schools[0];
+    res.render("signUp", {
+      schools: schools,
+    }); // 템플릿으로 전달
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    res.render("404", {}); // 오류 발생 시 빈 배열을 전달
+  }
 });
 
 // signingUp
@@ -105,6 +114,7 @@ app.post("/signingUp", async (req, res) => {
   var last_name = req.body.last_name;
   var password = req.body.password;
   var birthdate = req.body.birthdate;
+  var school_id = req.body.school;
   var email = req.body.email;
   var phone = req.body.phone;
   var hashedPassword = "";
@@ -124,6 +134,7 @@ app.post("/signingUp", async (req, res) => {
         birthdate: birthdate,
         email: email,
         phone: phone,
+        school_id: school_id,
       });
 
       if (success) {
@@ -237,18 +248,58 @@ app.get("/inbox", (req, res) => {
 //Submit claim page
 app.get("/submitClaim", async (req, res) => {
   try {
+    var schools = await db_school.getMySchools({
+      user_name: req.session.user_name,
+    }); // 학교 목록을 가져옴
     var categories = await db_categories.getCategories({}); // 카테고리 목록을 가져옴
+    schools = schools[0];
     categories = categories[0];
     res.render("submitClaim", {
+      schools: schools,
       categories: categories,
       school_name: req.session.school_name,
     }); // 템플릿으로 전달
   } catch (error) {
     console.error("Error fetching categories:", error);
     res.render("submitClaim", {
+      schools: [],
       categories: [],
       school_name: req.session.school_name,
     }); // 오류 발생 시 빈 배열을 전달
+  }
+});
+
+app.post("/submittingClaim", async (req, res) => {
+  var user_name = req.session.user_name;
+  var school_id = req.body.school;
+  var category_id = req.body.category;
+  var amount = parseInt(req.body.amount);
+  console.log("user_name: " + user_name);
+  console.log("school_id: " + school_id);
+  console.log("category_id: " + category_id);
+
+  var results = await db_users.getUserClaim({
+    user_name: user_name,
+    school_id: school_id,
+    category_id: category_id,
+  });
+  if (results.length > 0) {
+    var success = await db_claims.submitClaim({
+      user_school_id: results[0].user_school_id,
+      coverage_id: results[0].coverage_id,
+      amount: amount,
+    });
+    if (success) {
+      res.redirect("/");
+      return;
+    } else {
+      res.render("errorMessage", { error: "Failed to submit claim." });
+    }
+  } else {
+    console.log(
+      "invalid number of users matched: " + results.length + " (expected 1)."
+    );
+    res.redirect("404");
   }
 });
 

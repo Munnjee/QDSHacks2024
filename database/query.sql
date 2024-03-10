@@ -219,12 +219,18 @@ WHERE user.user_name = 'yongeun' and school.school_id = 1;
 
 
 SELECT user.user_name, school.school_name, insurance.insurance_id, insurance.insurance_company, insurance.insurance_number,
-category.category_name, coverage.limit, coverage.percentage, claim.amount
+category.category_name, coverage.limit, coverage.percentage
 FROM user
 LEFT JOIN user_school ON user.user_id = user_school.frn_user_id
-JOIN claim ON user_school.user_school_id = claim.frn_user_school_id
 JOIN school ON user_school.frn_school_id = school.school_id
 JOIN insurance ON school.frn_insurance_id = insurance.insurance_id
 JOIN coverage ON insurance.insurance_id = coverage.frn_insurance_id
 JOIN category ON coverage.frn_category_id= category.category_id
-WHERE user.user_name = 'yongeun' and school.school_id = 1;
+WHERE user.user_name = 'yongeun' and school.school_name = 'BCIT';
+
+SELECT user.user_name, school_id, school_name
+FROM user
+JOIN user_school ON user.user_id = user_school.frn_user_id
+JOIN school ON user_school.frn_school_id = school.school_id
+WHERE user.user_name = 'test';
+

@@ -13,7 +13,14 @@
 
 
                 <!-- category -->
-                <form action='/submitClaim' method='post'>
+                <form action='/submittingClaim' method='post'>
+                    <select name='school'>
+                        <% schools.forEach(function(school) { %>
+                            <option value="<%= school.school_id %>">
+                                <%= school.school_name %>
+                            </option>
+                            <% }) %>
+                    </select><br>
                     <select name='category'>
                         <% categories.forEach(function(category) { %>
                             <option value="<%= category.category_id %>">

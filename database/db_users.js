@@ -3,33 +3,58 @@ const database = include("databaseConnection");
 // Sign up a user
 async function signUpUser(postData) {
   let signUpUserSQL = `
-		INSERT INTO user
-		(user_name, first_name, last_name, password, birthdate, email, phone)
-		VALUES
-		(:user_name, :first_name, :last_name, :password, :birthdate, :email, :phone);
-	`;
+    INSERT INTO user
+      (user_name, first_name, last_name, password, birthdate, email, phone)
+      VALUES
+      (?, ?, ?, ?, ?, ?, ?);
+  `;
 
-  let params = {
-    user_name: postData.user_name,
-    first_name: postData.first_name,
-    last_name: postData.last_name,
-    password: postData.password,
-    birthdate: postData.birthdate,
-    email: postData.email,
-    phone: postData.phone,
-  };
+  let insertUserSchoolSQL = `
+    INSERT INTO user_school
+      (frn_user_id, frn_school_id) 
+      VALUES
+      (?, ?);
+  `;
+
+  let params = [
+    postData.user_name,
+    postData.first_name,
+    postData.last_name,
+    postData.password,
+    postData.birthdate,
+    postData.email,
+    postData.phone,
+  ];
 
   try {
-    const results = await database.query(signUpUserSQL, params);
-
+    // 쿼리 실행
+    const userResult = await executeQuery(database, signUpUserSQL, params);
+    const userId = userResult.insertId;
     console.log("Successfully created user");
-    console.log(results[0]);
-    return true;
+
+    const userSchoolResult = await executeQuery(database, insertUserSchoolSQL, [
+      userId,
+      postData.school_id,
+    ]);
+    console.log("Successfully created user_school");
+    return userSchoolResult;
   } catch (err) {
     console.log("Error inserting user");
-    console.log(err);
+    console.error(err);
     return false;
   }
+}
+
+function executeQuery(connection, sql, params) {
+  return new Promise((resolve, reject) => {
+    connection.query(sql, params, (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(results);
+      }
+    });
+  });
 }
 
 // Get a user
@@ -194,10 +219,70 @@ async function getUserCoverageInformation(postData) {
   }
 }
 
+// get a user with coverage balance
+async function getUserId(postData) {
+  let getUserIdSQL = `
+		SELECT user_id
+		FROM user
+    WHERE user_name = :user_name;
+	`;
+
+  let params = {
+    user_name: postData.user_name,
+  };
+
+  try {
+    const results = await database.query(getUserIdSQL, params);
+
+    console.log("Successfully retrieved users");
+    console.log(results[0]);
+    return results[0];
+  } catch (err) {
+    console.log("Error getting users");
+    console.log(err);
+    return false;
+  }
+}
+
+// get a user with coverage balance
+async function getUserClaim(postData) {
+  let getUserClaimSQL = `
+		SELECT user_school.user_school_id, insurance.insurance_id, coverage.coverage_id
+		FROM user
+    JOIN user_school ON user.user_id = user_school.frn_user_id
+    JOIN school ON user_school.frn_school_id = school.school_id
+    JOIN insurance ON school.frn_insurance_id = insurance.insurance_id
+    JOIN coverage ON insurance.insurance_id = coverage.frn_insurance_id
+    JOIN category ON coverage.frn_category_id= category.category_id
+    WHERE user.user_name = :user_name and school.school_id = :school_id and category.category_id = :category_id;
+	`;
+
+  let params = {
+    user_name: postData.user_name,
+    school_id: postData.school_id,
+    category_id: postData.category_id,
+  };
+
+  try {
+    const results = await database.query(getUserClaimSQL, params);
+
+    console.log("Successfully retrieved users claim");
+    console.log(results[0]);
+    return results[0];
+  } catch (err) {
+    console.log("Error getting users");
+    console.log(err);
+    return false;
+  }
+}
+
+``;
 module.exports = {
   signUpUser,
   getUser,
   getUserSchool,
   getUserProfile,
   getUserCoverageInformation,
+  getUserId,
+  getUserClaim,
 };
