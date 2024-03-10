@@ -1,49 +1,37 @@
-<!-- Sign Up Page Elements -->
 <%- include("templates/header") %>
 
-    <!-- Login Page CSS -->
-    <link rel="stylesheet" href="/css/form.css">
+        <link rel="stylesheet" href="/css/form.css">
+        <link rel="stylesheet" href="/css/profile.css">
     </head>
 
     <body>
-        <%- include("templates/navbar") %>
+<%- include("templates/navbar") %>
 
-            <div class="login-container" style="padding-top: 150px;">
-                profile
-
+            <div class="form-container">
+                <div id="image-holder"><img src="./images/404.png" alt=""></div>
+                <form class = "form" id="profile-form" method="post" action="updateProfile">
+                <h2><%=information.user_name %></h2>
 
                 <!-- category -->
-                <label for="username">user name: </label>
-                <input name='user_name' type='text' placeholder='<%=information.user_name %>' readonly><br>
 
-                <label for="first_name">first name: </label>
-                <input name='user_name' type='text' placeholder='<%=information.first_name %>'><br>
+                <label class="input-box" for="first_name"><input class="input-field" name='first_name' type='text' value='<%=information.first_name %>'></label>
+               
+                <label class="input-box" for="last_name"><input class="input-field" name='last_name' type='text' value='<%=information.last_name %>'></label>
 
-                <label for="last_name">last name: </label>
-                <input name='user_name' type='text' placeholder='<%=information.last_name %>'><br>
+                <label class="input-box" for="birthdate"><input class="input-field" name='birthdate' type='date' value='<%=information.birthdate %>'></label>
 
-                <label for="birthdate">birthdate:</label>
-                <input name='user_name' type='text' placeholder='<%=information.birthdate %>'><br>
+                <label class="input-box" for="email"><input class="input-field" name='email' type='text' value='<%=information.email %>'></label>
+                
+                <label class="input-box" for="phone"><input class="input-field" name=' user_name' type='text' value='<%=information.phone %>'></label>
 
-                <label for="email">email: </label>
-                <input name='user_name' type='text' placeholder='<%=information.email %>''><br>
+                <label class="input-box" for="school_name"><input class="input-field" name='school_name' type='text' value='<%=information.school_name %>' readonly></label>
 
-        <label for="phone">phone: </label>
-        <input name=' user_name' type='text' placeholder='<%=information.phone %>''><br>
+                <label class="input-box" for="insurance_company"><input class="input-field" name='insurance_company' type='text' value='<%=information.insurance_company %>' readonly></label>
 
-        <label for="school_name">school name: </label>
-        <input name=' user_name' type='text' placeholder='username'><br>
+                <label class="input-box" for="insurance_number"><input class="input-field" name='insurance_number' type='text' value='<%=information.insurance_number %>' readonly></label>
 
-                <label for="insurance_company">insurance company: </label>
-                <input name='user_name' type='text' placeholder='username'><br>
+                <button class="submit-btn" type="submit">SUBMIT</button>
+            </form>
 
-                <label for="insurance_number">insurance number: </label>
-                <input name='user_name' type='text' placeholder='username'><br>
-
-                <div class="button">
-                    <button type="button" onclick="window.location.href='profile'">Submit</button>
                 </div>
-            </div>
-
-
-            <%- include("templates/footer") %>
+<%- include("templates/footer") %>
