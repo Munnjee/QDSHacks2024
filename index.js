@@ -34,13 +34,19 @@ const node_session_secret = process.env.NODE_SESSION_SECRET;
 const support_mail = process.env.EDUHEALTH_SUPPORT_EMAIL;
 const support_password = process.env.EDUHEALTH_SUPPORT_PASSWORD;
 const JWT_SECRET = process.env.JWT_SECRET;
+//reset password
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+const Joi = require("joi");
+const WebsiteURL = "https://qdshacks2024.onrender.com";
 /* END secret section */
 
 /* Scheduling system */
 const cron = require("node-cron");
 
-cron.schedule("1,2,4,5 * * * *", () => {
-  console.log("running every minute 1, 2, 4 and 5");
+// Every month at midnight on the 1st day
+cron.schedule("0 0 1 * *", () => {
+  console.log("running a task at midnight on the 1st day of every month");
 });
 
 app.set("view engine", "ejs");
