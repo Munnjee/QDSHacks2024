@@ -184,7 +184,9 @@ WHERE school.school_name = 'BCIT';
 
 SELECT school.school_id, school.school_name, insurance.insurance_id, insurance.insurance_company, insurance.insurance_number
 FROM school
-JOIN insurance ON school.frn_insurance_id = insurance.insurance_id
+JOIN insurance ON school.frn_insurance_id = insurance.insurance_id;
 
-
+SELECT user_name, first_name, last_name, password, birthdate, email, phone
+FROM user
+WHERE user_name = :user_name;
   

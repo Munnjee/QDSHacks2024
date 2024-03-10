@@ -20,7 +20,7 @@ const success = db_utils.printMySQLVersion();
 //reference of the express module
 const app = express();
 
-const expireTime = 24 * 60 * 60 * 1000; //expires after 1 day  (hours * minutes * seconds * millis)
+const expireTime = 24 * 60 * 60 * 10; //expires after 1 day  (hours * minutes * seconds * millis)
 
 /* secret information section */
 const mongodb_host = process.env.MONGODB_HOST;
@@ -71,12 +71,14 @@ function sessionValidation(req, res, next) {
 }
 
 //Main page
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   if (!req.session.authenticated) {
     res.render("login");
   } else {
-    console.log("user_name: " + req.session.user_name);
-    res.render("index", { user_name: req.session.user_name });
+    res.render("index", {
+      user_name: req.session.user_name,
+      school: req.session.school,
+    });
   }
 });
 
@@ -139,7 +141,7 @@ app.post("/loggingin", async (req, res) => {
   var user_name = req.body.user_name;
   var password = req.body.password;
 
-  var results = await db_users.getUser({
+  var results = await db_users.getUserSchool({
     user_name: user_name,
   });
   if (results) {
@@ -148,7 +150,10 @@ app.post("/loggingin", async (req, res) => {
       if (bcrypt.compareSync(password, results[0].password)) {
         req.session.authenticated = true;
         req.session.user_name = user_name;
+        req.session.school = results[0].school_name;
         req.session.cookie.maxAge = expireTime;
+
+        console.log(req.session.school);
 
         res.redirect("/");
         return;
