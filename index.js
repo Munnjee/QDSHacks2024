@@ -230,7 +230,7 @@ app.get("/addInsurance", (req, res) => {
 
 //Inbox page
 app.get("/inbox", (req, res) => {
-  res.render("inbox");
+  res.render("inbox", { school_name: req.session.school_name });
 });
 
 //Submit claim page
