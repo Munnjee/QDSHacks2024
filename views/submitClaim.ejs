@@ -9,24 +9,31 @@
             <div class="form-container">
                 <h2>Submit a Claim</h2>
                 <!-- category -->
-                <form action='/submittingClaim' method='post'>
-                    <select name='school'>
-                        <% schools.forEach(function(school) { %>
-                            <option value="<%= school.school_id %>">
-                                <%= school.school_name %>
-                            </option>
-                            <% }) %>
-                    </select><br>
-                    <select name='category'>
-                        <% categories.forEach(function(category) { %>
-                            <option value="<%= category.category_id %>">
-                                <%= category.category_name %>
-                            </option>
-                            <% }) %>
-                    </select><br>
-                    <input name='amount' type='number' placeholder='amount'><br>
-                    <button>Submit</button>
+                <form class="form" action='/submittingClaim' method='post'>
+                    <label for="school" class="input-box">
+                        <select class="input-field" name='school'>
+                            <% schools.forEach(function(school) { %>
+                                <option value="<%= school.school_id %>">
+                                    <%= school.school_name %>
+                                </option>
+                                <% }) %>
+                        </select>
+                    </label>
+                    <label class="input-box" for="category">
+                        <select class="input-field" name='category'>
+                            <% categories.forEach(function(category) { %>
+                                <option value="<%= category.category_id %>">
+                                    <%= category.category_name %>
+                                </option>
+                                <% }) %>
+                        </select>
+                    </label>
+                    <label for="amount" class="input-box">
+
+                        <input class="input-field" name='amount' type='number' placeholder='amount'>
+                    </label>
+
+                    <button class="submit-btn" onclick="location.href='/';">Submit</button>
                 </form>
             </div>
-
-<%- include("templates/footer") %>
+            <%- include("templates/footer") %>
