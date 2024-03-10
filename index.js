@@ -190,6 +190,7 @@ app.get("/forgotPassword", (req, res, next) => {
 // Sends the reset password email
 app.post("/forgotPassword", async (req, res, next) => {
   const { email } = req.body;
+  console.log(email);
   const user = await db_users.getUserByEmail({ email: email });
 
   if (!user) {
@@ -198,6 +199,7 @@ app.post("/forgotPassword", async (req, res, next) => {
     });
   } else {
     const secret = JWT_SECRET + user.password;
+    console.log("secret" + secret);
     const payload = {
       email: email,
       user_name: user.user_name,
@@ -245,12 +247,12 @@ app.post("/forgotPassword", async (req, res, next) => {
 });
 
 // Renders the reset password page
-app.get("/resetPassword/:user_name/:token", async (req, res, next) => {
+app.get("/resetPassword/:id/:token", async (req, res, next) => {
   // Get user email and token from url
-  const { user_name, token } = req.params;
+  const { email, token } = req.params;
 
   // Find user in database
-  const user = await db_users.getUserByEmail(user_name);
+  const user = await db_users.getUserByEmail(email);
 
   // If user does not exist, return error message
   if (!user) {
@@ -268,8 +270,8 @@ app.get("/resetPassword/:user_name/:token", async (req, res, next) => {
   }
 });
 
-app.post("/resetPassword/:user_name/:token", async (req, res, next) => {
-  const { user_name, token } = req.params;
+app.post("/resetPassword/:id/:token", async (req, res, next) => {
+  const { id, token } = req.params;
   const { newPassword } = req.body;
 
   const schema = Joi.object({
@@ -286,7 +288,7 @@ app.post("/resetPassword/:user_name/:token", async (req, res, next) => {
     return res.render("error", { errorMessage: "Validation error!" });
   }
 
-  const user = await db_users.getUserByEmail({ user_name: user_name });
+  const user = await db_users.getUserByEmail({ _id: new ObjectId(id) });
 
   if (!user) {
     return res.render("error", { errorMessage: "ID not found!" });
