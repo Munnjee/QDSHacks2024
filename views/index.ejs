@@ -81,8 +81,7 @@
             .attr("rx", 5)
             .attr("ry", 5);
 
-          svg
-            .selectAll(".bar1")
+          svg.selectAll(".bar1")
             .data(data)
             .enter()
             .append("rect")
@@ -95,7 +94,23 @@
             })
             .attr("height", barHeight)
             .attr("rx", 5)
-            .attr("ry", 5);
+            .attr("ry", 5)
+            .on("mouseover", function (d) {
+              // Show amountPaid when mouseover
+              svg.append("text")
+                .attr("class", "tooltip")
+                .attr("x", x((d.amountPaid / d.limit) * 100) + 5) // Adjust position
+                .attr("y", y(d.title) + (barHeight / 2))
+                .text(d.amountPaid)
+            })
+            .on("mouseout", function (d) {
+              // Remove the tooltip when mouseout
+              d3.select(".tooltip").remove();
+            })
+            .style("opacity", 0) // Initially hide the bars
+            .transition()
+            .duration(200)
+            .style("opacity", 1); // Fade in the bars on mouseover
 
           // Add the category titles above each bar
           svg
@@ -113,6 +128,8 @@
             .text(function (d) {
               return d.title;
             });
+
+
         });
         window.dispatchEvent(new Event("resize"));
       </script>
