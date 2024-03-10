@@ -132,7 +132,6 @@ app.get("/login", (req, res) => {
     req.session.errorMessage = null;
     res.render("login", { errorMessage: errorMessage });
   }
-  res.render("login");
 });
 
 // Logging in
