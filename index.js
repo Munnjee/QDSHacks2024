@@ -209,6 +209,11 @@ app.get("/addInsurance", (req, res) => {
   res.render("addInsurance");
 });
 
+//Inbox page
+app.get("/inbox", (req, res) => {
+  res.render("inbox");
+});
+
 //Submit claim page
 app.get("/submitClaim", async (req, res) => {
   try {
