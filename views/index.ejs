@@ -104,7 +104,7 @@
               return y(d.title) - 5;
             })
             .text(function (d) {
-              return d.title + "  (" + (d.limit - d.amountPaid) + ")";
+              return d.title + "  ( Balance: $" + (d.limit - d.amountPaid) + ")";
             });
 
         });

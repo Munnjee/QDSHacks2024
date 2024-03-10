@@ -18,9 +18,16 @@
   margin-right: auto;
 }
 
-p {
+h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 0.5em;
   color: var(--accent1);
-  font-size: 1.5em;
+}
+
+p {
+  text-align: center;
+  font-size: 14px;
   margin-bottom: 0.5em;
 }
 
@@ -38,7 +45,7 @@ svg{
 
 .chart_label {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   fill: var(--accent1)
 }
 
