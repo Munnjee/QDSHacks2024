@@ -19,8 +19,8 @@
           let data = information.map(function (info) {
             return {
               title: info.category_name,
-              limit: info.limit,
-              amountPaid: info.percentage
+              limit: info.originalLimit,
+              amountPaid: info.limit
             };
           });
 

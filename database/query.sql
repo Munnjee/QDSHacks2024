@@ -234,3 +234,49 @@ JOIN user_school ON user.user_id = user_school.frn_user_id
 JOIN school ON user_school.frn_school_id = school.school_id
 WHERE user.user_name = 'test';
 
+INSERT INTO user
+
+SELECT school.school_id, school.school_name, insurance.insurance_id, insurance.insurance_company, insurance.insurance_number
+        FROM school
+        JOIN insurance ON school.frn_insurance_id = insurance.insurance_id;
+        
+        
+        SELECT user.user_name, school_id, school_name
+    FROM user
+    JOIN user_school ON user.user_id = user_school.frn_user_id
+    JOIN school ON user_school.frn_school_id = school.school_id
+    WHERE user.user_name ='test';
+
+INSERT INTO claim (column1, column2, column3)
+SELECT source_column1, source_column2, source_column3
+FROM source_table
+WHERE condition;
+
+    
+SELECT user_school.user_school_id, insurance.insurance_id, coverage.coverage_id, category.category_id
+		FROM user
+    JOIN user_school ON user.user_id = user_school.frn_user_id
+    JOIN school ON user_school.frn_school_id = school.school_id
+    JOIN insurance ON school.frn_insurance_id = insurance.insurance_id
+    JOIN coverage ON insurance.insurance_id = coverage.frn_insurance_id
+    JOIN category ON coverage.frn_category_id= category.category_id
+    WHERE user_name = 'test' and school_id = 1 and category_id;
+    
+SELECT user_school.user_school_id, insurance.insurance_id, coverage.coverage_id
+		FROM user
+    JOIN user_school ON user.user_id = user_school.frn_user_id
+    JOIN school ON user_school.frn_school_id = school.school_id
+    JOIN insurance ON school.frn_insurance_id = insurance.insurance_id
+    JOIN coverage ON insurance.insurance_id = coverage.frn_insurance_id
+    JOIN category ON coverage.frn_category_id= category.category_id
+    WHERE user.user_name = 'test' and school.school_id = 1 and category.category_id = 2;
+    
+    
+    
+SELECT category.category_name, category.category_id
+FROM user
+JOIN user_school ON user.user_id = user_school.frn_user_id
+JOIN claim ON user_school.user_school_id = claim.frn_user_school_id
+JOIN coverage ON claim.frn_coverage_id = coverage.coverage_id
+JOIN category ON coverage.frn_category_id = category.category_id
+WHERE user_name = 'test';

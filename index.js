@@ -78,32 +78,85 @@ app.get("/", async (req, res) => {
   } else {
     var user_name = req.session.user_name;
     var school_name = req.session.school_name;
-    var results = await db_users.getUserCoverageInformation({
+    var coverage_results = await db_users.getUserCoverageInformation({
       user_name: user_name,
       school_name: school_name,
     });
 
-    console.log(results[0]);
+    var claim_results = await db_claims.getClaims({
+      user_name: user_name,
+      school_name: school_name,
+    });
+
+    console.log(coverage_results[0]);
+    console.log(claim_results);
+
+    const updatedResults = calculateAndUpdateLimits(
+      coverage_results,
+      claim_results
+    );
+
+    console.log("Updated coverage results:");
+    updatedResults.forEach((result, index) => {
+      console.log(`[${index}]:`);
+      console.log(result);
+    });
 
     res.render("index", {
       user_name: user_name,
       school_name: req.session.school_name,
-      information: results,
+      information: updatedResults,
     });
   }
 });
 
+function calculateAndUpdateLimits(coverage_results, claim_results) {
+  for (let coverage of coverage_results) {
+    let totalClaimAmount = 0;
+    for (let claim of claim_results) {
+      if (claim.category_id === coverage.category_id) {
+        totalClaimAmount += parseFloat(claim.total_amount);
+      }
+    }
+    console.log(
+      "Total claim amount for category " +
+        coverage.category_name +
+        ": " +
+        totalClaimAmount
+    );
+
+    // original limit is used to calculate the percentage
+    coverage.originalLimit = coverage.limit;
+
+    if (coverage.limit !== undefined) {
+      coverage.limit -= totalClaimAmount * (coverage.percentage / 100);
+      console.log(
+        "Updated limit for category " +
+          coverage.category_name +
+          ": " +
+          coverage.limit
+      );
+    } else {
+      console.log(
+        "Warning: No limit found for category " + coverage.category_name
+      );
+    }
+  }
+
+  return coverage_results;
+}
+
 //Signup page
 app.get("/signUp", async (req, res) => {
   try {
-    var schools = await db_schools.getSchools({}); // 학교 목록을 가져옴
+    var schools = await db_schools.getSchools({});
     schools = schools[0];
     res.render("signUp", {
       schools: schools,
-    }); // 템플릿으로 전달
+    });
   } catch (error) {
     console.error("Error fetching categories:", error);
-    res.render("404", {}); // 오류 발생 시 빈 배열을 전달
+    res.render("404", {});
   }
 });
 

@@ -160,8 +160,7 @@ async function getUserProfile(postData) {
 // get a user with coverage balance
 async function getUserCoverageInformation(postData) {
   let getUserCoverageInformationSQL = `
-		SELECT user.user_name, school.school_name, insurance.insurance_id, insurance.insurance_company, insurance.insurance_number,
-    category.category_name, coverage.limit, coverage.percentage
+		SELECT user.user_name, school.school_name, category.category_id, category.category_name, coverage.limit, coverage.percentage
     FROM user
     LEFT JOIN user_school ON user.user_id = user_school.frn_user_id
     JOIN school ON user_school.frn_school_id = school.school_id
