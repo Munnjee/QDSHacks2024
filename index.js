@@ -238,10 +238,16 @@ app.get("/submitClaim", async (req, res) => {
   try {
     var categories = await db_categories.getCategories({}); // 카테고리 목록을 가져옴
     categories = categories[0];
-    res.render("submitClaim", { categories: categories }); // 템플릿으로 전달
+    res.render("submitClaim", {
+      categories: categories,
+      school_name: req.session.school_name,
+    }); // 템플릿으로 전달
   } catch (error) {
     console.error("Error fetching categories:", error);
-    res.render("submitClaim", { categories: [] }); // 오류 발생 시 빈 배열을 전달
+    res.render("submitClaim", {
+      categories: [],
+      school_name: req.session.school_name,
+    }); // 오류 발생 시 빈 배열을 전달
   }
 });
 

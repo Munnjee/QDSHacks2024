@@ -1,22 +1,30 @@
+<!-- Sign Up Page Elements -->
 <%- include("templates/header") %>
 
-    <div class="login-container" style="padding-top: 150px;">
-        submit claim
+    <!-- Login Page CSS -->
+    <link rel="stylesheet" href="/css/form.css">
+    </head>
+
+    <body>
+        <%- include("templates/navbar") %>
+
+            <div class="login-container" style="padding-top: 150px;">
+                submit claim
 
 
-        <!-- category -->
-        <form action='/submitClaim' method='post'>
-            <select name='category'>
-                <% categories.forEach(function(category) { %>
-                    <option value="<%= category.category_id %>">
-                        <%= category.category_name %>
-                    </option>
-                    <% }) %>
-            </select><br>
-            <input name='amount' type='number' placeholder='amount'><br>
-            <button>Submit</button>
-        </form>
-    </div>
+                <!-- category -->
+                <form action='/submitClaim' method='post'>
+                    <select name='category'>
+                        <% categories.forEach(function(category) { %>
+                            <option value="<%= category.category_id %>">
+                                <%= category.category_name %>
+                            </option>
+                            <% }) %>
+                    </select><br>
+                    <input name='amount' type='number' placeholder='amount'><br>
+                    <button>Submit</button>
+                </form>
+            </div>
 
 
-    <%- include("templates/footer") %>
+            <%- include("templates/footer") %>
