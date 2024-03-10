@@ -70,13 +70,12 @@ function sessionValidation(req, res, next) {
 
 //Main page
 app.get("/", (req, res) => {
-  // if (!req.session.authenticated) {
-  //   res.render("login");
-  // } else {
-  //   console.log("user_name: " + req.session.user_name);
-  //   res.render("index", { user_name: req.session.user_name });
-  // }
-  res.render("index");
+  if (!req.session.authenticated) {
+    res.render("login");
+  } else {
+    console.log("user_name: " + req.session.user_name);
+    res.render("index", { user_name: req.session.user_name });
+  }
 });
 
 //Signup page
@@ -123,14 +122,14 @@ app.post("/signingUp", async (req, res) => {
 
 //Login page
 app.get("/login", (req, res) => {
-  // if (isValidSession(req)) {
-  //   res.redirect("/");
-  //   return;
-  // } else {
-  //   var errorMessage = req.session.errorMessage;
-  //   req.session.errorMessage = null;
-  //   res.render("login", { errorMessage: errorMessage });
-  // }
+  if (isValidSession(req)) {
+    res.redirect("/");
+    return;
+  } else {
+    var errorMessage = req.session.errorMessage;
+    req.session.errorMessage = null;
+    res.render("login", { errorMessage: errorMessage });
+  }
   res.render("login");
 });
 
