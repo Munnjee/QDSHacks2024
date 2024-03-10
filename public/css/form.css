@@ -3,13 +3,13 @@ h2 {
   text-align: center;
   margin-bottom: 0.5em;
 }
-.form-container{
-    width: 100%;
-    height: 50vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.form-container {
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .form-container {
@@ -36,7 +36,7 @@ h2 {
   margin: 0 auto;
 }
 
-.submit-btn:active{
+.submit-btn:active {
   color: var(--accent1);
 }
 
@@ -53,7 +53,7 @@ h2 {
 }
 
 .link-btn:active {
-  color: var(--accent1)
+  color: var(--accent1);
 }
 
 .input-box {
@@ -86,9 +86,16 @@ h2 {
 }
 
 .forgot-btn:active {
-  color: var(--accent1)
+  color: var(--accent1);
 }
 
-#signUpForm{
+#signUpForm {
   width: 100%;
+}
+
+.explanation {
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  color: var(--accent1);
 }
