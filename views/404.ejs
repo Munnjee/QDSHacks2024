@@ -1,0 +1,28 @@
+<!-- Sign Up Page Elements -->
+<%- include("templates/header") %>
+
+    <!-- Links to CSS -->
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/profile.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    </head>
+
+    <body>
+
+<div class="d-flex align-items-center justify-content-center">
+  <div class="text-center" style="padding-top: 60px;">
+    <img src="./images/404.png" class="img-fluid custom-image" style="width:20em; border-radius: 50%;" />
+    <h1 class="display-1 fw-bold">404</h1>
+    <p class="fs-3"> <span class="text-danger">Oops!</span> Page not found.</p>
+    <p class="lead">
+        The page you’re looking for doesn’t exist.
+    </p>
+    <button class="submit-btn" type="button" onclick="window.location.href='/'">GO HOME</button>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<%- include("templates/footer") %>
