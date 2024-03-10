@@ -124,10 +124,6 @@ app.get("/", async (req, res) => {
       school_name: req.session.school_name,
       information: updatedResults,
     });
-
-    cron.schedule("* * * * *", () => {
-      console.log("running a task every minute");
-    });
   }
 });
 
@@ -162,7 +158,7 @@ function calculateAndUpdateLimits(coverage_results, claim_results) {
       //   "Warning: No limit found for category " + coverage.category_name
       // );
     }
-    coverage.remaininglimit = coverage.originalLimit - coverage.limit;
+    coverage.amountPaid = coverage.originalLimit - coverage.limit;
   }
 
   return coverage_results;

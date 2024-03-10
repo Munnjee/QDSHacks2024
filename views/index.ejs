@@ -20,7 +20,7 @@
             return {
               title: info.category_name,
               limit: info.originalLimit,
-              amountPaid: info.limit
+              amountPaid: info.amountPaid
             };
           });
 
@@ -111,7 +111,7 @@
               return y(d.title) - 5;
             })
             .text(function (d) {
-              return d.title;
+              return d.title + "  (" + (d.limit - d.amountPaid) + ")";
             });
 
         });

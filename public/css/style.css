@@ -42,7 +42,7 @@ header {
 }
 
 li,
-a{
+a {
   font-weight: 500;
   font-size: 16px;
   color: var(--accent5);
@@ -149,7 +149,7 @@ i {
     display: inline-block;
     background-color: transparent;
   }
-  
+
   #click:not(:checked)~.nav_li {
     left: +100%;
   }
@@ -186,7 +186,7 @@ i {
 }
 
 
-svg{
+svg {
   display: block;
   margin: auto
 }
@@ -197,11 +197,11 @@ svg{
   fill: var(--accent1)
 }
 
-.bar1{
-  fill:var(--accent2);
-  
+.bar1 {
+  fill: var(--accent2);
+
 }
 
-.bar2{
-  fill:var(--accent4);
+.bar2 {
+  fill: var(--accent4);
 }
